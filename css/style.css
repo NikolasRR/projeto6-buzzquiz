@@ -100,7 +100,7 @@ nav h1 {
     height: 181px;
     object-fit: cover;
     border-radius: 5px;
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 63.54%, #000000 100%), url(/img/harry.jpg);
+    background: linear-gradient(deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 63.54%, #000000 100%), url(/img/harry.jpg);
 }
 
 .quizz span {
