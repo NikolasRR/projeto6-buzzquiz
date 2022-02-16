@@ -44,41 +44,76 @@
     </nav>
     
     <!--Screen selected quizz (screen 2, by figma) -->
-    <aside class="quizz-selected">
+    <div class="bottomBoxHeader">
+        <h1>O quão Potterhead é você?</h1>
+        <img src="/img/harry.jpg">      
+    </div>
 
-        <div class="bottomBoxHeader">
-            <h1>O quão Potterhead é você?</h1>
-        </div>
+    <aside class="quizz-selected">
 
         <div class="option-quizz-selected">
 
             <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
             
-            <div>
-                <figure>
-                    <img src="/img/mouse.jpg">
-                    <figcaption>Rato</figcaption>
-                </figure>
             
-                <figure>
-                    <img src="/img/black-cat.jpg">
-                    <figcaption>Black gato</figcaption>
-                </figure>
+            <figure class="option opacity" onclick="select()"> 
+                <img src="/img/mouse.jpg">
+                <figcaption>Rato</figcaption>
+            </figure>
+        
+            <figure class="option opacity">
+                <img src="/img/black-cat.jpg">
+                <figcaption>Black gato</figcaption>
+            </figure>
 
-                <figure>
-                    <img src="/img/mustela.jpg">
-                    <figcaption>Mustela(The furão)</figcaption> 
-                </figure>
+            <figure class="option opacity">
+                <img src="/img/mustela.jpg">
+                <figcaption>Mustela(The furão)</figcaption> 
+            </figure>
 
-                <figure>
-                    <img src="/img/frog.png">
-                    <figcaption>Sapo Frog</figcaption>
-                </figure>
-            </div>
+            <figure class="option selected">
+                <img src="/img/frog.png">
+                <figcaption class="select">Sapo Frog</figcaption>
+            </figure>
             
         </div>
         
     </aside>
+
+    <aside class="quizz-selected">
+
+        <div class="option-quizz-selected">
+
+            <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
+            
+            
+            <figure class="option opacity" onclick="select()"> 
+                <img src="/img/mouse.jpg">
+                <figcaption>Rato</figcaption>
+            </figure>
+        
+            <figure class="option opacity">
+                <img src="/img/black-cat.jpg">
+                <figcaption>Black gato</figcaption>
+            </figure>
+
+            <figure class="option opacity">
+                <img src="/img/mustela.jpg">
+                <figcaption>Mustela(The furão)</figcaption> 
+            </figure>
+
+            <figure class="option opa">
+                <img src="/img/frog.png">
+                <figcaption class="select">Sapo Frog</figcaption>
+            </figure>
+            
+        </div>
+        
+    </aside>
+    
+
+   
+    
     
    
     <!--End second screen-->
