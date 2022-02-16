@@ -29,18 +29,23 @@ header h1{
 /*styles first screen*/
 
 nav {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: auto;
+    min-width: 340px;
+    max-width: 1051px;
+    width: calC(100vw - 36px);
 }
 
 nav h1 {
+    width: 100%;
     font-weight: bold;
     font-size: 20px;
     line-height: 23px;
-    padding-bottom: 14px;
+    padding-top: 35px;
 }
 
 .userQuizzes {
@@ -86,13 +91,19 @@ nav h1 {
 }
 
 .allQuizzes {
-    padding-top: 35px;
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1051px;
+    background-color: aquamarine;
 }
 
 .quizz {
     position: relative;
     width: 340px;
     height: 181px;
+    margin: 0 auto 14px auto;
 }
 
 .quizz img {
@@ -100,7 +111,11 @@ nav h1 {
     height: 181px;
     object-fit: cover;
     border-radius: 5px;
-    background: linear-gradient(deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 63.54%, #000000 100%), url(/img/harry.jpg);
+}
+
+.quizz::after {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 63.54%, #000000 100%), url(/img/harry.jpg);
+
 }
 
 .quizz span {
@@ -165,6 +180,6 @@ nav h1 {
 
 /*utilities*/
 
-.disabled{
+.disabled {
     display: none;
 }
