@@ -33,7 +33,6 @@ function quizz(number){
     <h1>${object.title}</h1>
     <img src="${object.image}">  
     `
-
     let quizzesOptions = document.querySelector(".options");
     quizzesOptions.innerHTML = ``;
     
@@ -42,8 +41,7 @@ function quizz(number){
             <article class="option-quizz-selected opt${i}">`
             let choices = document.querySelector('.option-quizz-selected.opt'+i);
             choices.innerHTML += `<h1>${object.questions[i].title}</h1>`
-
-                    
+       
         for(let j = 0; j< object.questions[i].answers.length;j++){
 
             let response = object.questions[i].answers[j];
@@ -52,11 +50,7 @@ function quizz(number){
                 <img src="${response.image}">
                 <figcaption>${response.text}</figcaption>
             </figure>
-            `
-
-
-            
-            
+         `          
         } 
 
             
