@@ -22,7 +22,7 @@
         <h1>BuzzQuizz</h1>
     </header>
 
-    <main class="screen1">
+    <main class="screen1 disabled">
         
         <article class="noUserQuizzes">
             <span>Você não criou nenhum quizz ainda :(</span>
@@ -162,7 +162,7 @@
     <!-- screen 3 -->
     <main class="screen3">
 
-        <section class="quizzCreationStart disabled">
+        <section class="quizzCreationStart">
 
             <h1>Comece pelo começo</h1>
 
@@ -175,7 +175,7 @@
 
         </section>
 
-        <section class="quizzCreationQuestions disabled">
+        <section class="quizzCreationQuestions">
 
             <h1>Crie suas perguntas</h1>
 
@@ -203,12 +203,47 @@
                 </div>
             </article>
 
-            <article class="minimizedQuestion">
+            <article class="minimized">
                 <h3>Pergunta 2</h3>
                 <ion-icon name="create-outline"></ion-icon>
             </article>
 
             <button>Prosseguir pra criar níveis</button>
+
+        </section>
+
+        <section class="quizzCreationLevels">
+
+            <h1>Agora, decida os níveis!</h1>
+
+            <article class="level">
+                    <h2>Nível 1</h2>
+                    <input id="" placeholder="   Título do nível">
+                    <input id="" placeholder="   % de acerto mínima">
+                    <input id="" placeholder="   URL da imagem do nível">
+                    <input id="" placeholder="   Descrição do nível">
+            </article>
+
+            <article class="minimized">
+                <h3>Nível 2</h3>
+                <ion-icon name="create-outline"></ion-icon>
+            </article>
+
+            <button>Finalizar Quizz</button>
+
+        </section>
+
+        <section class="quizzCreationFinish">
+
+            <h1>Seu quizz está pronto!</h1>
+
+            <article class="quizzCreated">
+                <img src="./img/harry.jpg">
+                <span>Harry POTTAH</span>
+            </article>
+
+            <button>Acessar Quizz</button>
+            <button>Voltar pra home</button>
 
         </section>
 

@@ -286,7 +286,23 @@ input {
     font-family: 'Roboto', sans-serif;
 }
 
-/* screen 3.1 - quizz start*/
+.minimized {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    margin-top: 69px;
+    height: 74px;
+    background-color: white;
+}
+
+.minimized:hover {
+    cursor: pointer;
+}
+/* screen 3.1 - quizz creation start*/
 .quizzCreationStart {
     display: flex;
     flex-direction: column;
@@ -329,16 +345,11 @@ input {
     border: none;
 }
 
-/* screen 3.2 - quizz questions */
-.quizzCreationQuestions .question {
+/* screen 3.2 - quizz creation questions */
+.quizzCreationQuestions {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.quizzCreationQuestions footer > h2 {
-    width: 100%;
-    background-color: green;
 }
 
 .quizzCreationQuestions div {
@@ -393,19 +404,124 @@ input {
     border: none;
 }
 
-.quizzCreationQuestions .minimizedQuestion {
+/* screen 3.3 - quizz creation levels */
+.quizzCreationLevels {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+}
+
+.quizzCreationLevels .level {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quizzCreationLevels h1 {
     font-weight: bold;
     font-size: 20px;
     line-height: 23px;
-    margin-top: 69px;
-    background-color: white;
+    padding: 37px 0 37px 0;
 }
 
-.minimizedQuestion:hover {
-    cursor: pointer;
+.quizzCreationLevels h2 {
+    width: 100%;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    margin: 19px 0 0 0;
+}
+
+.quizzCreationLevels input {
+    margin-top: 9px;
+    border: 1px solid #D1D1D1;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 341px;
+    height: 46px;
+    font-size: 19px;
+    line-height: 22px;
+    color: #BABABA;
+}
+
+.quizzCreationLevels input::placeholder {
+    font-size: 19px;
+    line-height: 22px;
+    font-style: italic;
+    opacity: 0.6;
+}
+
+.quizzCreationLevels button {
+    margin: 56px 0 60px 0;
+    width: 324px;
+    height: 54px;
+    background: #EC362D;
+    border-radius: 15px;
+    font-size: 18px;
+    line-height: 21px;
+    color: #FFF5F4;
+    border: none;
+}
+
+/* screen 3.4 - quizz creation finish */
+.quizzCreationFinish {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quizzCreationFinish h1 {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    padding: 37px 0 37px 0;
+}
+
+.quizzCreationFinish button {
+    margin: 24px 0 9px 0;
+    width: 220.32px;
+    height: 44px;
+    background: #EC362D;
+    border-radius: 15px;
+    font-size: 18px;
+    line-height: 21px;
+    color: #FFF5F4;
+    border: none;
+}
+
+.quizzCreationFinish button:last-child {
+    margin: 0 0 60px 0;
+    width: 220.32px;
+    height: 44px;
+    color: #818181;
+    border-radius: 15px;
+    font-size: 18px;
+    line-height: 21px;
+    background-color: white;
+    border: none;
+}
+
+.quizzCreated {
+    position: relative;
+    width: 340px;
+    height: 181px;
+    margin-bottom: 14px;
+}
+
+.quizzCreated img {
+    width: 340px;
+    height: 181px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.quizzCreated span {
+    position: absolute;
+    bottom: 7px;
+    left: 18px;
+    font-size: 19px;
+    line-height: 22px;
+    color: #FFFFFF;
 }
 
 /*utilities */
@@ -422,7 +538,7 @@ input {
 
 
 @media (min-width: 1100px) {
-    /* screen 1.1 - no users quizzes*/
+    /* screen 1*/
     .screen1 {
         width: 1051px;
     }
@@ -439,16 +555,32 @@ input {
         width: 1051px;
         margin: 31px auto 71px auto;
     }
-    /* screen 1.2 - there are users quizzes*/
+    
     /* screen 2 */
-    /* screen 3.1 - quizz start*/
-    .quizzCreationStart input {
+    /* screen 3 - general changes */
+    .screen3 h1 {
+        font-size: 23px;
+        line-height: 27px;
+    }
+
+    .screen3 input {
         width: 564px;
     }
 
-    .quizzCreationStart button {
-        width: 368.86px;
+    .screen3 button {
         font-size: 21px;
         line-height: 25px;
+    }
+
+    /* screen 3.4 - quizz created finish */
+    .quizzCreated {
+        width: 500px;
+        height: 266px;
+    }
+
+    .quizzCreated img {
+        width: 500px;
+        height: 266px;
+        object-fit: cover;
     }
 }
