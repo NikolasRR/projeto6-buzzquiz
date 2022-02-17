@@ -37,9 +37,7 @@ header h1{
     justify-content: center;
     align-items: center;
     margin: 69px auto 0 auto;
-    min-width: 340px;
-    max-width: 1051px;
-    width: calC(100vw - 36px);
+    width: 340px;
 }
 
 .screen1 h1 {
@@ -53,9 +51,7 @@ header h1{
     margin: 35px 0 14px 0;
     display: flex;
     align-items: center;
-    min-width: 340px;
-    max-width: 1051px;
-    width: calC(100vw - 36px);
+    width: 340px;
 }
 
 .screen1 ion-icon {
@@ -63,7 +59,7 @@ header h1{
     font-size: 30px;
 }
 
-nav ion-icon:hover {
+.screen1 ion-icon:hover {
     cursor: pointer;
 }
 
@@ -72,14 +68,11 @@ nav ion-icon:hover {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 100%;
-    max-width: 1051px;
+    width: 340px;
 }
 
 .noUserQuizzes {
-    min-width: 340px;
-    max-width: 1051px;
-    width: calC(100vw - 36px);
+    width: 340px;
     height: 181px;
     display: flex;
     flex-direction: column;
@@ -88,7 +81,7 @@ nav ion-icon:hover {
     border: 1px dashed red;
     box-sizing: border-box;
     border-radius: 5px;
-    margin: 31px auto 0 auto;
+    margin: 31px auto 38px auto;
 }
 
 .noUserQuizzes span:first-child {
@@ -417,6 +410,22 @@ input {
 
 @media (min-width: 1100px) {
     /* screen 1.1 - no users quizzes*/
+    .screen1 {
+        width: 1051px;
+    }
+
+    .screen1 div {
+        width: 1051px;
+    }
+
+    .userQuizzes {
+        width: 1051px;
+    }
+
+    .noUserQuizzes {
+        width: 1051px;
+        margin: 31px auto 71px auto;
+    }
     /* screen 1.2 - there are users quizzes*/
     /* screen 2 */
     /* screen 3.1 - quizz start*/
