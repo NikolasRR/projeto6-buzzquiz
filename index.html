@@ -10,7 +10,7 @@
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@400;700&display=swap" rel="stylesheet">
     
     <title>BuzzQuizz</title>
 </head>
@@ -22,9 +22,9 @@
         <h1>BuzzQuizz</h1>
     </header>
 
-    <nav class="">
+    <main id="screen1" class="">
         
-        <article class="noUserQuizzes">
+        <article class="noUserQuizzes disabled">
             <span>Você não criou nenhum quizz ainda :(</span>
             <span>Criar Quizz</span>
         </article>
@@ -87,12 +87,10 @@
 
         </section>
 
-    </nav>
+    </main>
     
     <!--Screen selected quizz (screen 2, by figma) -->
-    
-
-    <section class="quizz-selected">
+    <section class="screen2 disabled">
 
         <header class="bottomBoxHeader ">
             <h1>O quão Potterhead é você?</h1>
@@ -155,23 +153,58 @@
         </article>
         
     </section>
-
-
-    <!--End second screen-->
+    
 
     <!-- screen 3 -->
-    <main class="disabled">
+    <main class="screen3 disabled">
 
-        <section class="quizzCreationStart">
+        <section class="quizzCreationStart disabled">
 
             <h1>Comece pelo começo</h1>
 
-            <input placeholder="   Título do quizz">
-            <input placeholder="   URL da imagem do seu quizz">
-            <input placeholder="   Quantidade de perguntas do quizz">
-            <input placeholder="   Quantidade de níveis do quizz">
+            <input id="quizzTitle" placeholder="   Título do quizz">
+            <input id="" placeholder="   URL da imagem do seu quizz">
+            <input id="" placeholder="   Quantidade de perguntas do quizz">
+            <input id="" placeholder="   Quantidade de níveis do quizz">
 
             <button>Prosseguir para criar perguntas</button>
+
+        </section>
+
+        <section class="quizzCreationQuestions">
+
+            <h1>Crie suas perguntas</h1>
+
+            <article class="question">
+                <div class="questionTextImg">
+                    <h2>Pergunta 1</h2>
+                    <input id="" placeholder="   Texto da pergunta">
+                    <input id="" placeholder="   Cor de fundo da pergunta">
+                </div>
+                
+                <div class="correctAnswer">
+                    <h2>Resposta correta</h2>
+                    <input id="" placeholder="   Resposta correta">
+                    <input id="" placeholder="   URL da imagem">
+                </div>
+
+                <div class="incorrectAnswers">
+                    <h2>Respostas incorretas</h2>
+                    <input id="" placeholder="   Resposta incorreta 1">
+                    <input id="" placeholder="   URL da imagem 1">
+                    <input id="" placeholder="   Resposta incorreta 2">
+                    <input id="" placeholder="   URL da imagem 2">
+                    <input id="" placeholder="   Resposta incorreta 3">
+                    <input id="" placeholder="   URL da imagem 3">
+                </div>
+            </article>
+
+            <article class="minimizedQuestion">
+                <h3>Pergunta 2</h3>
+                <ion-icon name="create-outline"></ion-icon>
+            </article>
+
+            <button>Prosseguir pra criar níveis</button>
 
         </section>
 
