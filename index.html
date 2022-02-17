@@ -22,8 +22,7 @@
         <h1>BuzzQuizz</h1>
     </header>
 
-    <main class="screen1 disabled">
-        
+    <main class="screen1 ">        
         <article class="noUserQuizzes">
             <span>Você não criou nenhum quizz ainda :(</span>
             <span>Criar Quizz</span>
@@ -60,107 +59,33 @@
                 <img src="./img/harry.jpg">
                 <span>Harry POTTAH</span>
             </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
+            
             <!-- VÃO ENTRAR OS QUIZZES AQUI -->
 
         </section>
 
     </main>
     
-    <!--Screen selected quizz (screen 2, by figma) -->
-    <div class="bottomBoxHeader disabled">
-        <h1>O quão Potterhead é você?</h1>
-        <img src="/img/harry.jpg">      
-    </div>
+    <!--Screen 2 -->
+    <section class="screen2 disabled">
 
-    <aside class="quizz-selected disabled">
+        <header class="bottomBoxHeader">
+            <h1>O quão Potterhead é você?</h1>
+            <img src="/img/harry.jpg">      
+        </header>
 
-        <div class="option-quizz-selected">
+       
+        <div class="options">
 
-            <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
             
-            
-            <figure class="option opacity" onclick="select()"> 
-                <img src="/img/mouse.jpg">
-                <figcaption>Rato</figcaption>
-            </figure>
         
-            <figure class="option opacity">
-                <img src="/img/black-cat.jpg">
-                <figcaption>Black gato</figcaption>
-            </figure>
-
-            <figure class="option opacity">
-                <img src="/img/mustela.jpg">
-                <figcaption>Mustela(The furão)</figcaption> 
-            </figure>
-
-            <figure class="option selected">
-                <img src="/img/frog.png">
-                <figcaption class="select">Sapo Frog</figcaption>
-            </figure>
-            
         </div>
         
-    </aside>
-
-    <aside class="quizz-selected disabled">
-
-        <div class="option-quizz-selected">
-
-            <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
-            
-            
-            <figure class="option opacity" onclick="select()"> 
-                <img src="/img/mouse.jpg">
-                <figcaption>Rato</figcaption>
-            </figure>
-        
-            <figure class="option opacity">
-                <img src="/img/black-cat.jpg">
-                <figcaption>Black gato</figcaption>
-            </figure>
-
-            <figure class="option opacity">
-                <img src="/img/mustela.jpg">
-                <figcaption>Mustela(The furão)</figcaption> 
-            </figure>
-
-            <figure class="option opa">
-                <img src="/img/frog.png">
-                <figcaption class="select">Sapo Frog</figcaption>
-            </figure>
-            
-        </div>
-        
-    </aside>
-    <!--End second screen-->
+    </section>
+    
 
     <!-- screen 3 -->
-    <main class="screen3">
+    <main class="screen3 disabled">
 
         <section class="quizzCreationStart">
 
@@ -248,6 +173,17 @@
         </section>
 
     </main>
+
+
+
+    <!--Screen test-->
+    <main class="test disabled">
+        <button onclick="getQuizzes()"> Pegue os quizes
+
+        </button>
+
+    </main>
+
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

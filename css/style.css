@@ -1,6 +1,6 @@
 body{
     display:flex;
-    flex-direction: column;
+    
     font-family: 'Roboto', sans-serif;
     background-color: #e7e5e5;
 }
@@ -15,7 +15,7 @@ header{
     display: flex;
     justify-content: center;
     color: #FFFFFF;
-    background-color: #EC362D;
+    background-color: #EC412D;
     width: 100%;
     height: 69px; 
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -145,16 +145,22 @@ header h1{
 
 /*styles second screens*/
 
-.bottomBoxHeader {
-   z-index: 2;
+.screen2{
    
+    
+    margin-top: 65px;
+    font-family: Roboto;
+    font-style: normal;
+}
+.bottomBoxHeader{
+    z-index: 2;
     width: 100%;
     height: 142px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
     
-    margin-top: 86px;
     text-align: center;
     color: #FFFFFF;
     float:left;
@@ -162,7 +168,7 @@ header h1{
     
     contain: paint;
     background-color: rgb(16, 17, 17);
-    
+   
 }
 .bottomBoxHeader img{ 
     width: 100%;
@@ -188,20 +194,7 @@ header h1{
 }
 
 
-aside{
-    background-color: #ffffff;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 50px;
-    font-family: Roboto;
-    font-style: normal;
-}
-
-aside img{
-    width: 163px;
-    margin: 0px 15px;
-}
-aside h1{
+.option-quizz-selected h1{ 
     /*fonts*/
     font-weight: bold;
     font-size: 3.8vw;
@@ -213,16 +206,16 @@ aside h1{
     flex-wrap: wrap;
     /*margins*/
     height: 65px;
-    margin: 2px 1x;
+    
     padding: 0px 3px;
-    width: 100vw;
-    height: 13vw;
+    
+    
     /*colors*/
     color: #FFFFFF;
     background-color: #434CA0;
     
 }
-aside div{
+.option-quizz-selected{
     /*fonts*/
     font-family: Roboto;
     font-style: bold;
@@ -231,41 +224,35 @@ aside div{
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
-    
     /*margins*/
-    margin: 4vw 4vw;
-    width: 92vw;
+    margin-top: 150px;
+    padding: 10px;
 
     /*colors*/
+    background-color: #FFFFFF;
    
 
 }
+
 
 figure{
     width: 42vw;
     height: 29.11vw;
     contain: paint; 
     padding-bottom: 4.5vw;
-    margin-top: 3vw;
-   
+    margin-top: 3vw;  
 }
 figure img{
     border-radius: 2px; 
     width: 100%;
     height: 100%;
-    
-    
-    
 }
 figure figcaption{
     font-weight: bold;
     font-size: 4vw;
-    
     margin-left: 2vw;
-   
-    
-   
 }
+
 
 
 
@@ -525,9 +512,10 @@ input {
 }
 
 /*utilities */
-.opacity{
+.block{
     opacity: 30%;
     color: #EC362D;
+    pointer-events: none;
 }
 .select{
     color: #43a057;
