@@ -22,7 +22,7 @@
         <h1>BuzzQuizz</h1>
     </header>
 
-    <main class="screen1">        
+    <main class="screen1 ">        
         <article class="noUserQuizzes">
             <span>Você não criou nenhum quizz ainda :(</span>
             <span>Criar Quizz</span>
@@ -59,98 +59,51 @@
                 <img src="./img/harry.jpg">
                 <span>Harry POTTAH</span>
             </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-            <article class="quizz">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
+            
             <!-- VÃO ENTRAR OS QUIZZES AQUI -->
 
         </section>
 
     </main>
     
-    <!--Screen selected quizz (screen 2, by figma) -->
+    <!--Screen 2 -->
     <section class="screen2 disabled">
 
-        <header class="bottomBoxHeader ">
+        <header class="bottomBoxHeader">
             <h1>O quão Potterhead é você?</h1>
             <img src="/img/harry.jpg">      
         </header>
 
-        <article class="option-quizz-selected">
-            
+       
+        <div class="options">
 
-            <h1 class="question">Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
+            <article class="option-quizz-selected">
+
+                <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
+                
+                
+                <figure class="option"> 
+                    <img src="/img/mouse.jpg">
+                    <figcaption>Rato</figcaption>
+                </figure>
             
-            
-            <figure class="option opacity" onclick="select()"> 
-                <img src="/img/mouse.jpg">
-                <figcaption>Rato</figcaption>
-            </figure>
+                <figure class="option">
+                    <img src="/img/black-cat.jpg">
+                    <figcaption>Black gato</figcaption>
+                </figure>
+
+                <figure class="option">
+                    <img src="/img/mustela.jpg">
+                    <figcaption>Mustela(The furão)</figcaption> 
+                </figure>
+
+                <figure class="option">
+                    <img src="/img/frog.png">
+                    <figcaption class="select">Sapo Frog</figcaption>
+                </figure>
+         </article>
         
-            <figure class="option opacity">
-                <img src="/img/black-cat.jpg">
-                <figcaption>Black gato</figcaption>
-            </figure>
-
-            <figure class="option opacity">
-                <img src="/img/mustela.jpg">
-                <figcaption>Mustela(The furão)</figcaption> 
-            </figure>
-
-            <figure class="option selected">
-                <img src="/img/frog.png">
-                <figcaption class="select">Sapo Frog</figcaption>
-            </figure>
-            
-        </article> 
-
-        <article class="option-quizz-selected">
-
-        
-            <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
-            
-            
-            <figure class="option opacity" onclick="select()"> 
-                <img src="/img/mouse.jpg">
-                <figcaption>Rato</figcaption>
-            </figure>
-        
-            <figure class="option opacity">
-                <img src="/img/black-cat.jpg">
-                <figcaption>Black gato</figcaption>
-            </figure>
-
-            <figure class="option opacity">
-                <img src="/img/mustela.jpg">
-                <figcaption>Mustela(The furão)</figcaption> 
-            </figure>
-
-            <figure class="option opa">
-                <img src="/img/frog.png">
-                <figcaption class="select">Sapo Frog</figcaption>
-            </figure>
-        </article>
+        </div>
         
     </section>
     
@@ -213,7 +166,7 @@
 
 
     <!--Screen test-->
-    <main class="test">
+    <main class="test disabled">
         <button onclick="getQuizzes()"> Pegue os quizes
 
         </button>
