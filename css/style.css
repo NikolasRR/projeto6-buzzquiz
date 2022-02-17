@@ -68,14 +68,11 @@ header h1{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 100%;
-    max-width: 1051px;
+    width: 340px;
 }
 
 .noUserQuizzes {
-    min-width: 340px;
-    max-width: 1051px;
-    width: calC(100vw - 36px);
+    width: 340px;
     height: 181px;
     display: flex;
     flex-direction: column;
@@ -84,7 +81,7 @@ header h1{
     border: 1px dashed red;
     box-sizing: border-box;
     border-radius: 5px;
-    margin: 31px auto 0 auto;
+    margin: 31px auto 38px auto;
 }
 
 .noUserQuizzes span:first-child {
@@ -432,6 +429,15 @@ input {
 
     .screen1 div {
         width: 1051px;
+    }
+
+    .userQuizzes {
+        width: 1051px;
+    }
+
+    .noUserQuizzes {
+        width: 1051px;
+        margin: 31px auto 71px auto;
     }
     /* screen 1.2 - there are users quizzes*/
     /* screen 2 */
