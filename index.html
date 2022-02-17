@@ -22,9 +22,9 @@
         <h1>BuzzQuizz</h1>
     </header>
 
-    <nav class="disabled">
+    <nav class="">
         
-        <article class="noUserQuizzes disabled">
+        <article class="noUserQuizzes">
             <span>Você não criou nenhum quizz ainda :(</span>
             <span>Criar Quizz</span>
         </article>
@@ -90,16 +90,19 @@
     </nav>
     
     <!--Screen selected quizz (screen 2, by figma) -->
-    <div class="bottomBoxHeader disabled">
-        <h1>O quão Potterhead é você?</h1>
-        <img src="/img/harry.jpg">      
-    </div>
+    
 
-    <aside class="quizz-selected disabled">
+    <section class="quizz-selected">
 
-        <div class="option-quizz-selected">
+        <header class="bottomBoxHeader ">
+            <h1>O quão Potterhead é você?</h1>
+            <img src="/img/harry.jpg">      
+        </header>
 
-            <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
+        <article class="option-quizz-selected">
+            
+
+            <h1 class="question">Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
             
             
             <figure class="option opacity" onclick="select()"> 
@@ -122,14 +125,11 @@
                 <figcaption class="select">Sapo Frog</figcaption>
             </figure>
             
-        </div>
+        </article> 
+
+        <article class="option-quizz-selected">
+
         
-    </aside>
-
-    <aside class="quizz-selected disabled">
-
-        <div class="option-quizz-selected">
-
             <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
             
             
@@ -152,14 +152,15 @@
                 <img src="/img/frog.png">
                 <figcaption class="select">Sapo Frog</figcaption>
             </figure>
-            
-        </div>
+        </article>
         
-    </aside>
+    </section>
+
+
     <!--End second screen-->
 
     <!-- screen 3 -->
-    <main>
+    <main class="disabled">
 
         <section class="quizzCreationStart">
 
