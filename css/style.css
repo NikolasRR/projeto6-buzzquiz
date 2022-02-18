@@ -1,6 +1,5 @@
 body{
     display:flex;
-    
     font-family: 'Roboto', sans-serif;
     background-color: #e7e5e5;
 }
@@ -24,9 +23,6 @@ header h1{
     display: flex;
     align-items: center;
 }
-
-
-
 
 /*styles first screen*/
 
@@ -124,6 +120,7 @@ header h1{
     width: 340px;
     height: 181px;
     margin-bottom: 14px;
+    background-image: linear-gradient(45deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
 }
 
 .quizz img {
@@ -131,6 +128,7 @@ header h1{
     height: 181px;
     object-fit: cover;
     border-radius: 5px;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 120%);
 }
 
 .quizz span {
@@ -140,7 +138,10 @@ header h1{
     font-size: 19px;
     line-height: 22px;
     color: #FFFFFF;
+    
+    
 }
+
 
 
 /*styles second screens*/
@@ -206,10 +207,8 @@ header h1{
     flex-wrap: wrap;
     /*margins*/
     height: 65px;
-    
+    width: 100%;
     padding: 0px 3px;
-    
-    
     /*colors*/
     color: #FFFFFF;
     background-color: #434CA0;
@@ -251,6 +250,37 @@ figure figcaption{
     font-weight: bold;
     font-size: 4vw;
     margin-left: 2vw;
+}
+
+/*result*/
+.boxResult{
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 100%;
+}
+
+.title-result{
+    height: 99px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #EC362D;
+}
+.coments-result{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3.8vw;
+    height: 99px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    
+
 }
 
 
@@ -512,14 +542,20 @@ input {
 }
 
 /*utilities */
-.block{
-    opacity: 30%;
+.wrong{
     color: #EC362D;
     pointer-events: none;
 }
-.select{
+.correct{
     color: #43a057;
+    pointer-events: none;
 }
+
+.opacity    {
+    opacity: 30%;
+    pointer-events: none;
+}
+
 .disabled{
     display: none;
 }
@@ -571,4 +607,9 @@ input {
         height: 266px;
         object-fit: cover;
     }
+}
+
+.teste{
+    background-size: 100% 100%;
+    background-image:  url(../img/harry.jpg);
 }

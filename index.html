@@ -22,7 +22,7 @@
         <h1>BuzzQuizz</h1>
     </header>
 
-    <main class="screen1 ">        
+    <main class="screen1">        
         <article class="noUserQuizzes">
             <span>Você não criou nenhum quizz ainda :(</span>
             <span>Criar Quizz</span>
@@ -54,11 +54,15 @@
 
         <h1>Todos os Quizzes</h1>
         <section class="allQuizzes">
-
+        
             <article class="quizz">
                 <img src="./img/harry.jpg">
                 <span>Harry POTTAH</span>
             </article>
+
+            
+
+                
             
             <!-- VÃO ENTRAR OS QUIZZES AQUI -->
 
@@ -77,9 +81,23 @@
        
         <div class="options">
 
-            
-        
         </div>
+
+        
+            <article class="boxResult disabled">
+                <h1 class="title-result">88% de acerto: Você é praticamente um aluno de Hogwarts!</h1>
+                <img src="./img/mouse.jpg">
+                <h1 class="coments-result">Parabéns Potterhead! Bem-vindx a 
+                    Hogwarts, aproveite o loop infinito de comida e clique no 
+                    botão abaixo para usar o vira-tempo e reiniciar este teste.</h1>
+                <section class="returnOrReload">
+                    <button onclick="reload()">Reiniciar Quizz</button>
+                    <button onclick="backToHome()" >Voltar pra home</button>
+                </section>
+            </article>
+        
+
+       
         
     </section>
     
@@ -175,14 +193,11 @@
     </main>
 
 
+    
 
-    <!--Screen test-->
-    <main class="test disabled">
-        <button onclick="getQuizzes()"> Pegue os quizes
 
-        </button>
 
-    </main>
+    
 
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
