@@ -1,5 +1,10 @@
 let callFunction = getQuizzes();
 let arrayWithObjects = [];
+let qtdQuestions = null;
+let choiced = 0;
+let hits = 0;
+let objectTemp=null;
+
 
 let createdQuizz = {};
 let questionsNumber = 0;
@@ -29,15 +34,15 @@ function loadQuizzes(data){
 
 function quizz(number){
      let object = arrayWithObjects[number];
+     qtdQuestions = object.questions.length;
      
-     console.log(object);
+     
      
     let header = document.querySelector(".bottomBoxHeader");
     header.innerHTML = `
     <h1>${object.title}</h1>
     <img src="${object.image}">  
     `
-
     let quizzesOptions = document.querySelector(".options");
     quizzesOptions.innerHTML = ``;
     
@@ -46,44 +51,108 @@ function quizz(number){
             <article class="option-quizz-selected opt${i}">`
             let choices = document.querySelector('.option-quizz-selected.opt'+i);
             choices.innerHTML += `<h1>${object.questions[i].title}</h1>`
+            let response = object.questions[i].answers.sort(comparador);
+        for(let j = 0; j< response.length;j++){
 
-                    
-        for(let j = 0; j< object.questions[i].answers.length;j++){
-
-            let response = object.questions[i].answers[j];
+            
             choices.innerHTML += `
-            <figure class="option"> 
-                <img src="${response.image}">
-                <figcaption>${response.text}</figcaption>
+            <figure class="option opt${i}${j}" onclick="selected(${number}, ${i}, ${j})">
+                <img src="${response[j].image}">
+                <figcaption>${response[j].text}</figcaption>
             </figure>
-            `
-
-
-            
-            
+         `          
         } 
-
-            
-
     }
     
         let disabled = document.querySelector(".screen1");
         disabled.classList.add("disabled");
         let enabled = document.querySelector(".screen2");
-        enabled.classList.remove("disabled");
-    
-
-
-
-
-
-    
-    
+        enabled.classList.remove("disabled");  
 
 }
 
+function selected (obj, p1, p2){
+    let verifyChoices = arrayWithObjects[obj];
+    objectTemp = verifyChoices;
+
+    console.log(objectTemp);
+    
+    
+    for(let j = 0; j< verifyChoices.questions[p1].answers.length; j++){
+       
+        if(j==p2){
+           
+            if(verifyChoices.questions[p1].answers[j].isCorrectAnswer == true){
+                const change = document.querySelector(`.option.opt${p1}${j}`);
+                change.classList.add("correct");
+                hits++;
+                
+            }else{
+                const change = document.querySelector(`.option.opt${p1}${j}`);
+                change.classList.add("wrong");
+
+            }
+            
+        }else{
+            if(verifyChoices.questions[p1].answers[j].isCorrectAnswer == true){
+                const change = document.querySelector(`.option.opt${p1}${j}`);
+                change.classList.add("opacity");
+                change.classList.add("correct");
+                
+                
+            }else{
+                const change = document.querySelector(`.option.opt${p1}${j}`);
+                
+                change.classList.add("opacity");
+                change.classList.add("wrong");
+                
+            }
+        }
+    }
+
+   
+    choiced++
+    if(choiced == qtdQuestions){
+        setTimeout(finish,1000);   
+    } 
+}
+function finish (){
+    console.log("Entrou");
+    let score = (100/qtdQuestions)*hits;
+    let around = Math.ceil(score);
+    console.log(objectTemp.levels.length);
+    
+    for(let i = 0; i<objectTemp.levels.length; i++){
+
+        
+    }
 
 
+
+
+
+}
+
+function reload(){
+
+    let foundIn= 0;
+    for(let i = 0; i<arrayWithObjects;i++){
+        let obj = arrayWithObjects[i];
+        if(obj.id == objectTemp.id){
+            foundIn = i;
+        }
+    }
+
+    quizz(foundIn);
+}
+
+function backToHome(){
+    let disabled = document.querySelector(".screen2");
+    disabled.classList.add("disabled");
+    let enabled = document.querySelector(".screen1");
+    enabled.classList.remove("disabled");  
+
+}
 
 
 function comparador() { 
