@@ -1,6 +1,10 @@
 let callFunction = getQuizzes();
 let arrayWithObjects = [];
 
+let createdQuizz = {};
+let questionsNumber = 0;
+let questionsQuantity = null;
+
 function getQuizzes(){
     const getQuizServer = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     getQuizServer.then(loadQuizzes); 
@@ -84,4 +88,232 @@ function quizz(number){
 
 function comparador() { 
 	return Math.random() - 0.5; 
+}
+
+// Third screen interactions
+
+function createQuizz () {
+    const screen1 = document.querySelector(".screen1");
+    screen1.classList.add("disabled");
+
+    const screen3 = document.querySelector(".screen3");
+    screen3.classList.remove("disabled");
+    const quizzCreationStart = document.querySelector(".quizzCreationStart");
+    quizzCreationStart.classList.remove("disabled");
+}
+
+function verifyAndGoToQuizzQuestions () {
+    const quizzTitle = document.getElementById("quizzTitle").value;
+    const quizzImgURL = document.getElementById("quizzImgURL").value;
+    const quizzQuestionsQuantity = document.getElementById("quizzQuestionsQuantity").value;
+    const quizzLevelsQuantity = document.getElementById("quizzLevelsQuantity").value;
+
+    const quizzTitleIsAcceptable = quizzTitle.length >= 20 && quizzTitle.length <= 65;
+    const quizzImgURLIsAcceptable = (quizzImgURL.startsWith("http://") || quizzImgURL.startsWith("https://"));
+    const quizzQuestionsQuantityIsAcceptable = parseInt(quizzQuestionsQuantity) >= 3;
+    const quizzLevelsQuantityIsAcceptable = parseInt(quizzLevelsQuantity) >= 2;
+
+    if (quizzTitleIsAcceptable && quizzImgURLIsAcceptable && quizzQuestionsQuantityIsAcceptable && quizzLevelsQuantityIsAcceptable) {
+        createdQuizz.title = quizzTitle;
+        createdQuizz.image = quizzImgURL;
+        questionsQuantity = parseInt(quizzQuestionsQuantity);
+
+        const quizzCreationStart = document.querySelector(".quizzCreationStart");
+        quizzCreationStart.classList.add("disabled");
+
+        const quizzCreationQuestions = document.querySelector(".quizzCreationQuestions");
+        quizzCreationQuestions.classList.remove("disabled");
+
+        quizzCreationQuestions.innerHTML = `
+            <h1>Crie suas perguntas</h1>
+            <article class="question">
+                <div class="questionTextImg">
+                    <h2>Pergunta 1</h2>
+                    <input id="questionText" placeholder="   Texto da pergunta">
+                    <input id="questionBackground-color" placeholder="   Cor de fundo da pergunta">
+                </div>
+                
+                <div class="correctAnswer">
+                    <h2>Resposta correta</h2>
+                    <input id="correctAnswer" placeholder="   Resposta correta">
+                    <input id="correctAnswerImgURL" placeholder="   URL da imagem">
+                </div>
+
+                <div class="incorrectAnswers">
+                    <h2>Respostas incorretas</h2>
+                    <input id="incorrectAnswer1" placeholder="   Resposta incorreta 1">
+                    <input id="incorrectAnswer1ImgURL" placeholder="   URL da imagem 1">
+                    <input id="incorrectAnswer2" placeholder="   Resposta incorreta 2">
+                    <input id="incorrectAnswer2ImgURL" placeholder="   URL da imagem 2">
+                    <input id="incorrectAnswer3" placeholder="   Resposta incorreta 3">
+                    <input id="incorrectAnswer3ImgURL" placeholder="   URL da imagem 3">
+                </div>
+            </article>
+            `;
+
+        for (let i = 0; i < parseInt(quizzQuestionsQuantity) - 1; i++) {
+            quizzCreationQuestions.innerHTML += `
+                <article class="minimized" onclick="maximizeQuestion(this);">
+                    <h3>Pergunta ${i + 2}</h3>
+                    <ion-icon name="create-outline"></ion-icon>
+                </article>
+                `;
+        }
+        quizzCreationQuestions.innerHTML += `
+            <button onclick="GoToQuizzLevels();">Prosseguir pra criar níveis</button>
+            `;
+        
+        createdQuizz.questions = [];
+        return
+    }
+
+    alert("Por favor preencha os dados corretamente");
+}
+
+function GoToQuizzLevels () {
+    if (verifyAndSaveQuestion() && createdQuizz.questions.length === questionsQuantity) {
+        const quizzCreationQuestions = document.querySelector(".quizzCreationQuestions");
+        quizzCreationQuestions.classList.add("disabled");
+
+        const quizzCreationLevels = document.querySelector(".quizzCreationLevels");
+        quizzCreationLevels.classList.remove("disabled");
+        return
+    }
+
+    alert("Por favor preencha os dados corretamente");
+}
+
+function verifyAndGoToQuizzFinished () {
+    const levelTitle = document.getElementById("levelTitle").value;
+    const minimumPercentage = document.getElementById("minimumPercentage").value;
+    const levelImgURL = document.getElementById("levelImgURL").value;
+    const levelDescription = document.getElementById("levelDescription").value;
+
+    const levelTitleIsAcceptable = levelTitle.length >= 10;
+    const minimumPercentageIsAcceptable = (minimumPercentage >= 0 && minimumPercentage <= 100);
+    const levelImgURLIsAcceptable = (levelImgURL.startsWith("http://") || levelImgURL.startsWith("https://"));
+    const levelDescriptionIsAcceptable = levelDescription.length >= 30;
+
+    if (quizzTitleIsAcceptable && quizzImgURLIsAcceptable && quizzQuestionsQuantityIsAcceptable && quizzLevelsQuantityIsAcceptable) {
+        const quizzCreationStart = document.querySelector(".quizzCreationStart");
+        quizzCreationStart.classList.add("disabled");
+
+        const quizzCreationQuestions = document.querySelector(".quizzCreationQuestions");
+        quizzCreationQuestions.classList.remove("disabled");
+        return
+    }
+
+    alert("Por favor preencha os dados corretamente");
+}
+
+function maximizeQuestion (question) {
+    if (question.classList.contains("question") || question.classList.contains("answered")) {
+        return
+    }
+
+    if (verifyAndSaveQuestion()) {
+        const maximizedQuestion = document.querySelector(".question");
+        const maximizedQuestionNumber = maximizedQuestion.querySelector("h2:first-child").textContent;
+        maximizedQuestion.innerHTML = `
+            <h3>${maximizedQuestionNumber}</h3>
+            <ion-icon name="create-outline"></ion-icon>
+            `;
+        maximizedQuestion.classList.remove("question");
+        maximizedQuestion.classList.add("minimized");
+        maximizedQuestion.classList.add("answered");
+
+        const minimizedQuestionNumber = question.querySelector("h3").textContent;
+        question.innerHTML = `
+            <div class="questionTextImg">
+                <h2>${minimizedQuestionNumber}</h2>
+                <input id="questionText" placeholder="   Texto da pergunta">
+                <input id="questionBackground-color" placeholder="   Cor de fundo da pergunta">
+            </div>
+        
+            <div class="correctAnswer">
+                <h2>Resposta correta</h2>
+                <input id="correctAnswer" placeholder="   Resposta correta">
+                <input id="correctAnswerImgURL" placeholder="   URL da imagem">
+            </div>
+        
+            <div class="incorrectAnswers">
+                <h2>Respostas incorretas</h2>
+                <input id="incorrectAnswer1" placeholder="   Resposta incorreta 1">
+                <input id="incorrectAnswer1ImgURL" placeholder="   URL da imagem 1">
+                <input id="incorrectAnswer2" placeholder="   Resposta incorreta 2">
+                <input id="incorrectAnswer2ImgURL" placeholder="   URL da imagem 2">
+                <input id="incorrectAnswer3" placeholder="   Resposta incorreta 3">
+                <input id="incorrectAnswer3ImgURL" placeholder="   URL da imagem 3">
+            </div>
+            `;
+        question.classList.add("question");
+        question.classList.remove("minimized");
+        return
+    }
+
+    alert("Termine de preencher corretamente a pergunta atual para passar preencher a próxima");
+}
+
+function verifyAndSaveQuestion () {
+    const questionText = document.getElementById("questionText").value;
+    const questionBackground_color = document.getElementById("questionBackground-color").value;
+    const questionTextIsAcceptable = questionText.length >= 20;
+    const questionBackground_colorIsAcceptable = questionBackground_color.startsWith("#") && questionBackground_color.length === 7;
+    
+    const correctAnswer = document.getElementById("correctAnswer").value;
+    const correctAnswerImgURL = document.getElementById("correctAnswerImgURL").value;
+    const correctAnswerIsAcceptable = correctAnswer.length !== null;
+    const correctAnswerImgURLIsAcceptable = (correctAnswerImgURL.startsWith("http://") || correctAnswerImgURL.startsWith("https://"));
+
+    const incorrectAnswer1 = document.getElementById("incorrectAnswer1").value;
+    const incorrectAnswer1ImgURL = document.getElementById("incorrectAnswer1ImgURL").value;
+    const incorrectAnswer2 = document.getElementById("incorrectAnswer2").value;
+    const incorrectAnswer2ImgURL = document.getElementById("incorrectAnswer2ImgURL").value;
+    const incorrectAnswer3 = document.getElementById("incorrectAnswer3").value;
+    const incorrectAnswer3ImgURL = document.getElementById("incorrectAnswer3ImgURL").value;
+    const incorrectAnswer1IsAcceptable = incorrectAnswer1.length !== null;
+    const incorrectAnswer1ImgURLIsAcceptable = (incorrectAnswer1ImgURL.startsWith("http://") || incorrectAnswer1ImgURL.startsWith("https://"));
+    const incorrectAnswer2IsAcceptable = incorrectAnswer2.length !== null;
+    const incorrectAnswer2ImgURLIsAcceptable = (incorrectAnswer2ImgURL.startsWith("http://") || incorrectAnswer2ImgURL.startsWith("https://"));
+    const incorrectAnswer3IsAcceptable = incorrectAnswer3.length !== null;
+    const incorrectAnswer3ImgURLIsAcceptable = (incorrectAnswer3ImgURL.startsWith("http://") || incorrectAnswer3ImgURL.startsWith("https://"));
+
+    if (questionTextIsAcceptable && questionBackground_colorIsAcceptable && correctAnswerIsAcceptable && 
+        correctAnswerImgURLIsAcceptable && incorrectAnswer1IsAcceptable && incorrectAnswer1ImgURLIsAcceptable) {
+            createdQuizz.questions.push({
+                title: questionText,
+                color: questionBackground_color,
+                answers: [
+                    {
+                    text: correctAnswer,
+                    image: correctAnswerImgURL,
+                    isCorrectAnswer: true
+                    }, {
+                    text: incorrectAnswer1,
+                    image: incorrectAnswer1ImgURL,
+                    isCorrectAnswer: false
+                    }
+                ]
+            })
+
+            if (incorrectAnswer2IsAcceptable && incorrectAnswer2ImgURLIsAcceptable) {
+                createdQuizz.questions[questionsNumber].answers.push({
+                    text: incorrectAnswer2,
+                    image: incorrectAnswer2ImgURL,
+                    isCorrectAnswer: false
+                    })
+            }
+
+            if (incorrectAnswer3IsAcceptable && incorrectAnswer3ImgURLIsAcceptable) {
+                createdQuizz.questions[questionsNumber].answers.push({
+                    text: incorrectAnswer3,
+                    image: incorrectAnswer3ImgURL,
+                    isCorrectAnswer: false
+                })
+            }
+        questionsNumber++;
+        console.log(createdQuizz);
+        return true
+    }
+    return false
 }
