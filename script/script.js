@@ -11,13 +11,18 @@ let questionNumber = 0;
 let questionsQuantity = 0;
 let levelsQuantity = 0;
 let zeroPercentageLevelExists = false;
+let idCreatedQuizz = 0;
 
 function getQuizzes(){
     const getQuizServer = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-    getQuizServer.then(loadQuizzes); 
+    getQuizServer.then(loadQuizzes);
+    getQuizServer.catch( function (){alert("Erro ao recarregar os Quizzes.");  window.location.reload(); } )
 }
 
 function loadQuizzes(data){
+    console.log(data);
+
+    
    
     const allquizes = document.querySelector(".allQuizzes");
     
@@ -32,9 +37,12 @@ function loadQuizzes(data){
         </article>
         `
     }
+    
+   
 }
 
 function quizz(number){
+
      let object = arrayWithObjects[number];
      qtdQuestions = object.questions.length;
      objectTemp = object;
@@ -65,11 +73,12 @@ function quizz(number){
         }   
     }
 
-    let disabled = document.querySelector(".screen1");
-    disabled.classList.add("disabled");
-    let enabled = document.querySelector(".screen2");
-    enabled.classList.remove("disabled"); 
+    let disabledScreen1 = document.querySelector(".screen1");
+    let activeScreen2 = document.querySelector(".screen2");
     let toTop = document.querySelector(".bottomBoxHeader");
+
+    disabledScreen1.classList.add("disabled");
+    activeScreen2.classList.remove("disabled"); 
     toTop.scrollIntoView({block: "end", behavior: 'smooth'}); 
 
 }
@@ -125,9 +134,6 @@ function selected (obj, p1, p2){
     } 
         
 }
-
-   
-    
 
 function finish (){
     
@@ -371,11 +377,6 @@ function verifyAndSaveQuestion (question) {
                     isCorrectAnswer: false
                 })
             }
-<<<<<<< HEAD
-        questionsNumber++;
-       
-        return true
-=======
         questionNumber++;
         return
     }
@@ -479,7 +480,7 @@ function verifyAndGoToQuizzFinished () {
                 <img src="${createdQuizz.image}">
                 <span>${createdQuizz.title}</span>
             </article>
-            <button>Acessar Quizz</button>
+            <button onclick="accessQuizz()">Acessar Quizz</button>
             <button>Voltar pra home</button>
             `;
         quizzCreationFinished.classList.remove("disabled");
@@ -493,10 +494,12 @@ function verifyAndGoToQuizzFinished () {
                 createdQuizz.id = (response.data.id); 
                 const stringOfCreatedQuizz = JSON.stringify(createdQuizz);
                 localStorage.setItem(createdQuizz.title, stringOfCreatedQuizz);
+                getQuizzes(); 
+                idCreatedQuizz = response.data.id;
+                
             });
         
         return
->>>>>>> c9f68e0d6b1a3ba4aaa8efa6a786b14b4db4caf4
     }
     createdQuizz.levels = [];
     alert("Por favor preencha os dados corretamente");
@@ -517,5 +520,17 @@ function resetVariablesAndElements () {
     quizzCreationQuestions.innerHTML = `<h1>Crie suas perguntas</h1>`;
     const quizzCreationLevels = document.querySelector(".quizzCreationLevels");
     quizzCreationLevels.innerHTML = `<h1>Agora, decida os níveis!</h1>`;
+}
+
+function accessQuizz(){
+
+    for(let i = 0; i<arrayWithObjects.length; i++){
+        if(idCreatedQuizz == arrayWithObjects[i].id){
+            quizz(i);
+        }
+    }
+
+    const desableScreen4 = document.querySelector(".quizzCreationFinished");
+    desableScreen4.classList.add("disabled");
 }
 
