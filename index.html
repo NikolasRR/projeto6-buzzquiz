@@ -93,7 +93,7 @@
     <!-- screen 3 -->
     <main class="screen3 disabled">
 
-        <section class="quizzCreationStart disabled">
+        <section class="quizzCreationStart">
 
             <h1>Comece pelo começo</h1>
 
@@ -116,35 +116,11 @@
         <section class="quizzCreationLevels disabled">
 
             <h1>Agora, decida os níveis!</h1>
-
-            <article class="level">
-                    <h2>Nível 1</h2>
-                    <input id="levelTitle" placeholder="   Título do nível">
-                    <input id="minimumPercentage" placeholder="   % de acerto mínima">
-                    <input id="levelImgURL" placeholder="   URL da imagem do nível">
-                    <input id="levelDescription" placeholder="   Descrição do nível">
-            </article>
-
-            <article class="minimized">
-                <h3>Nível 2</h3>
-                <ion-icon name="create-outline"></ion-icon>
-            </article>
-
-            <button onclick="verifyAndGoToQuizzFinished();">Finalizar Quizz</button>
+            <!-- levels added with JS -->
 
         </section>
 
-        <section class="quizzCreationFinish disabled">
-
-            <h1>Seu quizz está pronto!</h1>
-
-            <article class="quizzCreated">
-                <img src="./img/harry.jpg">
-                <span>Harry POTTAH</span>
-            </article>
-
-            <button>Acessar Quizz</button>
-            <button>Voltar pra home</button>
+        <section class="quizzCreationFinished disabled">
 
         </section>
 
