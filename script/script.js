@@ -482,12 +482,7 @@ function verifyAndGoToQuizzFinished () {
 
         const createdQuizzPromisse =  axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizz);
         createdQuizzPromisse.then(
-            response => {
-                createdQuizz.id = (response.data.id); 
-                const stringOfCreatedQuizz = JSON.stringify(createdQuizz);
-                localStorage.setItem(createdQuizz.title, stringOfCreatedQuizz);
-            });
-        
+            response => localStorage.setItem(createdQuizz.title, response.data.id));
         return
     }
     createdQuizz.levels = [];
