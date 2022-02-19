@@ -31,9 +31,12 @@ function loadQuizzes(data){
 function quizz(number){
      let object = arrayWithObjects[number];
      qtdQuestions = object.questions.length;
-     
-     
-     
+     objectTemp = object;
+     console.log("Obj");
+     console.log(object);
+     console.log("obj temp");
+     console.log(objectTemp);
+   
     let header = document.querySelector(".bottomBoxHeader");
     header.innerHTML = `
     <h1>${object.title}</h1>
@@ -49,8 +52,7 @@ function quizz(number){
             choices.innerHTML += `<h1>${object.questions[i].title}</h1>`
             let response = object.questions[i].answers.sort(comparador);
         for(let j = 0; j< response.length;j++){
-
-            
+ 
             choices.innerHTML += `
             <figure class="option opt${i}${j}" onclick="selected(${number}, ${i}, ${j})">
                 <img src="${response[j].image}">
@@ -58,8 +60,11 @@ function quizz(number){
             </figure>
          `          
         } 
+        choices.scrollIntoView({block: "end"});
+        
+        
     }
-    
+
         let disabled = document.querySelector(".screen1");
         disabled.classList.add("disabled");
         let enabled = document.querySelector(".screen2");
@@ -69,8 +74,7 @@ function quizz(number){
 
 function selected (obj, p1, p2){
     let verifyChoices = arrayWithObjects[obj];
-    objectTemp = verifyChoices;
-
+   
     console.log(objectTemp);
     
     
@@ -86,7 +90,6 @@ function selected (obj, p1, p2){
             }else{
                 const change = document.querySelector(`.option.opt${p1}${j}`);
                 change.classList.add("wrong");
-
             }
             
         }else{
@@ -104,24 +107,65 @@ function selected (obj, p1, p2){
                 
             }
         }
-    }
+        
+        let next = document.querySelector(`.option.opt${p1+1}${j}`);
 
-   
-    choiced++
+        setTimeout(() => {if(next!= null){next.scrollIntoView();}}, 2000);
+        
+            
+        
+     }
+     choiced++;
+     
+     console.log("Choiced e hits");
+     console.log(choiced);
+     console.log(hits);
+
     if(choiced == qtdQuestions){
         setTimeout(finish,1000);   
     } 
-}
-function finish (){
-    console.log("Entrou");
-    let score = (100/qtdQuestions)*hits;
-    let around = Math.ceil(score);
-    console.log(objectTemp.levels.length);
-    
-    for(let i = 0; i<objectTemp.levels.length; i++){
-
         
+}
+
+   
+    
+
+function finish (){
+    
+    let score = (100/qtdQuestions)*hits;
+    let round = Math.ceil(score);
+    
+
+    console.log(score);
+    console.log("Entrou");
+    for(let i = 0; i<objectTemp.levels.length; i++){
+        console.log("score e object level"+1);
+        console.log(score);
+        console.log(objectTemp.levels[i].minValue);
+        if(score<=objectTemp.levels[i].minValue){
+            console.log("Entrou no if");
+
+           
+            let result = document.querySelector(".boxResult");
+            result.innerHTML = `
+            <h1 class="title-result">${round}% de acerto: ${objectTemp.levels[i].title}}!</h1>
+            <img src="${objectTemp.levels[i].image}">
+            <h1 class="coments-result">${objectTemp.levels[i].text}</h1>
+            `
+            result.scrollIntoView();
+            let showBoxResult = document.querySelector(".boxResult");
+            showBoxResult.classList.remove("disabled");
+            let showBoxButtons = document.querySelector(".returnOrReload");
+            showBoxButtons.classList.remove("disabled");
+            break;
+        }
+
     }
+
+    
+
+    
+
 
 
 
@@ -132,22 +176,31 @@ function finish (){
 function reload(){
 
     let foundIn= 0;
-    for(let i = 0; i<arrayWithObjects;i++){
+    for(let i = 0; i<arrayWithObjects.length;i++){
         let obj = arrayWithObjects[i];
         if(obj.id == objectTemp.id){
             foundIn = i;
         }
     }
-
+    
+    
+    qtdQuestions = null;
+    choiced = 0;
+    hits = 0;
+    objectTemp=null;
     quizz(foundIn);
+    
+
+    let ocultboxResult = document.querySelector(".boxResult");
+    let ocultBoxButtons = document.querySelector(".returnOrReload");
+    ocultboxResult.classList.add("disabled");
+    ocultBoxButtons.classList.add("disabled");
+
+
 }
 
 function backToHome(){
-    let disabled = document.querySelector(".screen2");
-    disabled.classList.add("disabled");
-    let enabled = document.querySelector(".screen1");
-    enabled.classList.remove("disabled");  
-
+    window.location.reload();
 }
 
 
