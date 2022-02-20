@@ -15,15 +15,15 @@ let idCreatedQuizz = 0;
 
 function getQuizzes(){
     const getQuizServer = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-    getQuizServer.then(loadQuizzes);
+    getQuizServer.then( setTimeout(loadQuizzes, 2000));
     getQuizServer.catch( function (){alert("Erro ao recarregar os Quizzes.");  window.location.reload(); } )
 }
 
 function loadQuizzes(data){
-    console.log(data);
 
-    
-   
+    let disabledLoading = document.querySelector(".loading");
+    disabledLoading.classList.add("disabled");
+
     const allquizes = document.querySelector(".allQuizzes");
     
     for(let i = 0; i<data.data.length; i++){
@@ -490,7 +490,14 @@ function verifyAndGoToQuizzFinished () {
 
         const createdQuizzPromisse =  axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizz);
         createdQuizzPromisse.then(
-            response => {localStorage.setItem(createdQuizz.title, response.data.id);getQuizzes();idCreatedQuizz = response.data.id});
+            response => {
+
+    
+                
+
+                localStorage.setItem(createdQuizz.title, response.data.id);
+                getQuizzes();
+                idCreatedQuizz = response.data.id});
         return
     }
     createdQuizz.levels = [];
@@ -521,7 +528,6 @@ function accessQuizz(){
             quizz(i);
         }
     }
-
     const desableScreen4 = document.querySelector(".quizzCreationFinished");
     desableScreen4.classList.add("disabled");
 }
