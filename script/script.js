@@ -17,20 +17,50 @@ function getQuizzes(){
     getQuizServer.then(loadQuizzes); 
 }
 
-function loadQuizzes(data){
+function loadQuizzes(response){
    
     const allquizes = document.querySelector(".allQuizzes");
-    
-    for(let i = 0; i<data.data.length; i++){
-        object = data.data[i];
+    const userQuizzes = document.querySelector(".userQuizzes");
+    const noUserQuizzes = document.querySelector(".noUserQuizzes");
+    let userHasQuizzes = false;
+
+    allquizes.innerHTML = "";
+    userQuizzes.innerHTML = `
+        <div class="userQuizzesTitle">
+            <h1>Seus Quizzes</h1>
+            <ion-icon name="add-circle" onclick="createQuizz();"></ion-icon>
+        </div>
+    `;
+
+    for(let i = 0; i<response.data.length; i++){
+        object = response.data[i];
         arrayWithObjects[i] = object;
         
-        allquizes.innerHTML += `
-        <article class="quizz" onclick="quizz(${i})">
-            <img src="${object.image}">
-            <span>${object.title}</span>
-        </article>
-        `
+        const isAUsersQuizz = object.id == localStorage.getItem(object.title);
+        if (isAUsersQuizz) {
+            userQuizzes.innerHTML += `
+            <article class="quizz">
+                <img onclick="quizz(${i})" src="${object.image}">
+                <span onclick="quizz(${i})" >${object.title}</span>
+                <div class="quizzOptions">
+                    <ion-icon name="create-outline"></ion-icon>
+                    <ion-icon onclick="deleteQuizz(this);" name="trash-outline"></ion-icon>                
+                </div>
+            </article>
+            `;
+            userHasQuizzes = true;
+        } else {
+            allquizes.innerHTML += `
+            <article class="quizz">
+                <img onclick="quizz(${i})" src="${object.image}">
+                <span onclick="quizz(${i})" >${object.title}</span>
+            </article>
+            `;
+        }
+    }
+    if (userHasQuizzes) {
+        noUserQuizzes.classList.add("disabled");
+        userQuizzes.classList.remove("disabled");
     }
 }
 
@@ -167,15 +197,6 @@ function finish (){
         }
 
     }
-
-    
-
-    
-
-
-
-
-
 
 }
 
@@ -473,7 +494,7 @@ function verifyAndGoToQuizzFinished () {
                 <span>${createdQuizz.title}</span>
             </article>
             <button>Acessar Quizz</button>
-            <button>Voltar pra home</button>
+            <button onclick="backToHome();">Voltar pra home</button>
             `;
         quizzCreationFinished.classList.remove("disabled");
 
@@ -482,27 +503,45 @@ function verifyAndGoToQuizzFinished () {
 
         const createdQuizzPromisse =  axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizz);
         createdQuizzPromisse.then(
-            response => localStorage.setItem(createdQuizz.title, response.data.id));
+            response => {
+                localStorage.setItem(createdQuizz.title, response.data.id);
+                localStorage.setItem(createdQuizz.title + "_KEY", response.data.key);
+            });
+        createdQuizzPromisse.catch(console.log("Ocorreu um problema"));
         return
     }
     createdQuizz.levels = [];
     alert("Por favor preencha os dados corretamente");
 }
 
-function resetVariablesAndElements () {
-    createdQuizz = {};
-    questionNumber = 0;
-    questionsQuantity = 0;
-    levelsQuantity = 0;
-    zeroPercentageLevelExists = false;
-
-    document.getElementById("quizzTitle").value = "";
-    document.getElementById("quizzImgURL").value = "";
-    document.getElementById("quizzQuestionsQuantity").value = "";
-    document.getElementById("quizzLevelsQuantity").value = "";
-    const quizzCreationQuestions = document.querySelector(".quizzCreationQuestions");
-    quizzCreationQuestions.innerHTML = `<h1>Crie suas perguntas</h1>`;
-    const quizzCreationLevels = document.querySelector(".quizzCreationLevels");
-    quizzCreationLevels.innerHTML = `<h1>Agora, decida os níveis!</h1>`;
+function deleteQuizz (trash_canIcon) {
+    const quizz = trash_canIcon.parentNode.parentNode;
+    const quizzTitle = quizz.querySelector("span").innerText;
+    const quizzID = localStorage.getItem(quizzTitle);
+    const quizzKEY = localStorage.getItem(quizzTitle + "_KEY");
+    const APIQuizzToDeleteLink = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`;
+    const objectHeader = {header: quizzKEY};
+    const quizzDeletedPromisse = axios.delete(APIQuizzToDeleteLink, objectHeader);
+    quizzDeletedPromisse.then(
+        () => {
+            console.log("Quizz deletado!");
+            getQuizzes();
+})
 }
+// function resetVariablesAndElements () {
+//     createdQuizz = {};
+//     questionNumber = 0;
+//     questionsQuantity = 0;
+//     levelsQuantity = 0;
+//     zeroPercentageLevelExists = false;
+
+//     document.getElementById("quizzTitle").value = "";
+//     document.getElementById("quizzImgURL").value = "";
+//     document.getElementById("quizzQuestionsQuantity").value = "";
+//     document.getElementById("quizzLevelsQuantity").value = "";
+//     const quizzCreationQuestions = document.querySelector(".quizzCreationQuestions");
+//     quizzCreationQuestions.innerHTML = `<h1>Crie suas perguntas</h1>`;
+//     const quizzCreationLevels = document.querySelector(".quizzCreationLevels");
+//     quizzCreationLevels.innerHTML = `<h1>Agora, decida os níveis!</h1>`;
+// }
 

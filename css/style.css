@@ -43,14 +43,14 @@ header h1{
     line-height: 23px;
 }
 
-.screen1 div {
+.userQuizzesTitle {
     margin: 35px 0 14px 0;
     display: flex;
     align-items: center;
     width: 340px;
 }
 
-.screen1 ion-icon {
+.userQuizzesTitle ion-icon {
     color: #EC362D;
     font-size: 30px;
 }
@@ -120,7 +120,7 @@ header h1{
     width: 340px;
     height: 181px;
     margin-bottom: 14px;
-    background-image: linear-gradient(45deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+    /* background-image: linear-gradient(45deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%); */
 }
 
 .quizz img {
@@ -138,10 +138,28 @@ header h1{
     font-size: 19px;
     line-height: 22px;
     color: #FFFFFF;
-    
-    
 }
 
+.quizz div {
+    position: absolute;
+    top: 9px;
+    right: 0;
+    width: 43px;
+    height: 87px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #EC362D;
+    color: #FFFFFF;
+    font-size: 30px;
+    border-radius: 10px 0px 0px 11px;
+    z-index: 2;
+}
+
+.quizz ion-icon:first-child {
+    padding-left: 4px;
+}
 
 
 /*styles second screens*/
@@ -360,6 +378,21 @@ button:hover {
 
 input {
     font-family: 'Roboto', sans-serif;
+    margin-top: 9px;
+    border: 1px solid #D1D1D1;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 341px;
+    height: 46px;
+    font-size: 19px;
+    line-height: 22px;
+}
+
+input::placeholder {
+    font-size: 19px;
+    line-height: 22px;
+    font-style: italic;
+    opacity: 0.6;
 }
 
 .minimized {
@@ -390,22 +423,6 @@ input {
     font-size: 20px;
     line-height: 23px;
     padding: 37px 0 41px 0;
-}
-
-.quizzCreationStart input {
-    margin-top: 9px;
-    border: 1px solid #D1D1D1;
-    box-sizing: border-box;
-    border-radius: 5px;
-    width: 341px;
-    height: 46px;
-}
-
-.quizzCreationStart input::placeholder {
-    font-size: 19px;
-    line-height: 22px;
-    font-style: italic;
-    opacity: 0.6;
 }
 
 .quizzCreationStart button {
@@ -448,24 +465,6 @@ input {
     margin: 19px 0 0 0;
 }
 
-.quizzCreationQuestions input {
-    margin-top: 9px;
-    border: 1px solid #D1D1D1;
-    box-sizing: border-box;
-    border-radius: 5px;
-    width: 341px;
-    height: 46px;
-    font-size: 19px;
-    line-height: 22px;
-}
-
-.quizzCreationQuestions input::placeholder {
-    font-size: 19px;
-    line-height: 22px;
-    font-style: italic;
-    opacity: 0.6;
-}
-
 .quizzCreationQuestions button {
     margin: 56px 0 60px 0;
     width: 324px;
@@ -504,24 +503,6 @@ input {
     font-size: 20px;
     line-height: 23px;
     margin: 19px 0 0 0;
-}
-
-.quizzCreationLevels input {
-    margin-top: 9px;
-    border: 1px solid #D1D1D1;
-    box-sizing: border-box;
-    border-radius: 5px;
-    width: 341px;
-    height: 46px;
-    font-size: 19px;
-    line-height: 22px;
-}
-
-.quizzCreationLevels input::placeholder {
-    font-size: 19px;
-    line-height: 22px;
-    font-style: italic;
-    opacity: 0.6;
 }
 
 .quizzCreationLevels button {
@@ -622,7 +603,7 @@ input {
         width: 1051px;
     }
 
-    .screen1 div {
+    .userQuizzesTitle  {
         width: 1051px;
     }
 
