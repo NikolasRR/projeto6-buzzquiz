@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,8 +22,18 @@
         <h1>BuzzQuizz</h1>
     </header>
 
+<<<<<<< HEAD
+    <div class="loading">
+        <img src="img/loading2.gif" >
+        <h1>Carregando...</h1>
+        
+    </div>
+
+    <main class="screen1 disabled">        
+=======
     <main class="screen1">        
 
+>>>>>>> 47563fa20951b1b26e2b2e54850e6d6365de5e4d
         <article class="noUserQuizzes">
             <span>Você não criou nenhum quizz ainda :(</span>
             <span onclick="createQuizz();">Criar Quizz</span>
@@ -48,15 +58,16 @@
         </header>
 
         <div class="options ">
-
         </div>
 
-        <article class="boxResult">
+        <article class="boxResult disabled">
         </article>
         <nav class="returnOrReload disabled">
             <button onclick="reload()">Reiniciar Quizz</button>
-            <button onclick="backToHome()" >Voltar pra home</button>
+            <button class="end" onclick="backToHome()" >Voltar pra home</button>
         </nav>
+
+        <div class="sonoresEffects"></div>
 
 
     </section>
@@ -66,7 +77,6 @@
     <main class="screen3 disabled">
 
         <section class="quizzCreationStart">
-
             <h1>Comece pelo começo</h1>
 
             <input id="quizzTitle" placeholder="   Título do quizz">

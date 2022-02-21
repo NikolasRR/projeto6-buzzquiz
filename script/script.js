@@ -21,9 +21,21 @@ function getQuizzes(){
     const getQuizServer = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     getQuizServer.then(loadQuizzes);
     getQuizServer.catch( function (){alert("Erro ao recarregar os Quizzes.");  window.location.reload(); } )
+
+    setTimeout(function(){
+        let disabledLoading = document.querySelector(".loading");
+        disabledLoading.classList.add("disabled");
+        
+    }, 3000);
 }
 
 function loadQuizzes(response){
+    setTimeout(function(){
+        let activeScreen1 = document.querySelector(".screen1.disabled");
+        activeScreen1.classList.remove("disabled");
+        
+    }, 2800);
+
    
     const allquizes = document.querySelector(".allQuizzes");
     const userQuizzes = document.querySelector(".userQuizzes");
@@ -68,8 +80,6 @@ function loadQuizzes(response){
         noUserQuizzes.classList.add("disabled");
         userQuizzes.classList.remove("disabled");
     }
-    
-   
 }
 
 function quizz(number){
@@ -104,6 +114,7 @@ function quizz(number){
         }   
     }
 
+
     let disabledScreen1 = document.querySelector(".screen1");
     let activeScreen2 = document.querySelector(".screen2");
     let toTop = document.querySelector(".bottomBoxHeader");
@@ -114,11 +125,20 @@ function quizz(number){
 
 }
 
+function sounds(effect){
+    let sound = document.querySelector(".sonoresEffects");
+    if(effect == "correct"){
+        sound.innerHTML = `<audio audio autoplay src="mp3/sucess.mp3" type="audio/mp3"></audio>`
+    }
+    else{
+        sound.innerHTML = `<audio audio autoplay src="mp3/beep.mp3" type="audio/mp3"></audio>`
+    }
+}
+
+
 function selected (obj, p1, p2){
     let verifyChoices = arrayWithObjects[obj];
    
-   
-    
     let lastQuestion = verifyChoices.questions[p1].answers.length
     for(let j = 0; j< lastQuestion; j++){
        
@@ -127,11 +147,13 @@ function selected (obj, p1, p2){
             if(verifyChoices.questions[p1].answers[j].isCorrectAnswer == true){
                 const change = document.querySelector(`.option.opt${p1}${j}`);
                 change.classList.add("correct");
+                sounds('correct');
                 hits++;
                 
             }else{
                 const change = document.querySelector(`.option.opt${p1}${j}`);
                 change.classList.add("wrong");
+                sounds('wrong');
             }
             
         }else{
@@ -203,11 +225,9 @@ function finish (){
             <img src="${objectTemp.levels[i].image}">
             <h1 class="coments-result">${objectTemp.levels[i].text}</h1>
             `
-           
-            
             let showBoxResult = document.querySelector(".boxResult");
             showBoxResult.classList.remove("disabled");
-            let showBoxButtons = document.querySelector(".returnOrReload");
+            let showBoxButtons = document.querySelector(".end");
             showBoxButtons.classList.remove("disabled");
             showBoxButtons.scrollIntoView({behavior: 'smooth'});
 
@@ -538,7 +558,14 @@ function verifyAndGoToQuizzFinished () {
                 <span>${createdQuizz.title}</span>
             </article>
             <button onclick="accessQuizz()">Acessar Quizz</button>
+<<<<<<< HEAD
             <button onclick="backToHome();">Voltar pra home</button>
+=======
+
+            <button onclick="backToHome()">Voltar pra home</button>
+
+
+>>>>>>> 29e01b9bd00e1585c3b388967f7e09aa34333eec
             `;
         quizzCreationFinished.classList.remove("disabled");
 
@@ -614,13 +641,17 @@ function resetVariablesAndElements () {
 }
 
 function accessQuizz(){
+<<<<<<< HEAD
     resetVariablesAndElements;
+=======
+    
+
+>>>>>>> 29e01b9bd00e1585c3b388967f7e09aa34333eec
     for(let i = 0; i<arrayWithObjects.length; i++){
         if(idCreatedQuizz == arrayWithObjects[i].id){
             quizz(i);
         }
     }
-
     const desableScreen4 = document.querySelector(".quizzCreationFinished");
     desableScreen4.classList.add("disabled");
 }
