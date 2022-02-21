@@ -314,7 +314,7 @@ function verifyAndGoToQuizzQuestions () {
                 questionMinimized = "disabled";
             }
             quizzCreationQuestions.innerHTML += `
-            <section>
+            <section data-identifier="question">
                 <article class="question ${questionForm}">
                     <div class="questionTextImg">
                         <h2>Pergunta ${i + 1}</h2>
@@ -338,7 +338,7 @@ function verifyAndGoToQuizzQuestions () {
                         <input id="incorrectAnswer3ImgURL" placeholder="   URL da imagem 3" value=${quizzBeingEdited?.questions[i]?.answers[3]?.image || ""}>
                     </div>
                 </article>
-                <article class="minimized ${questionMinimized}" onclick="maximizeQuestion(this);">
+                <article class="minimized ${questionMinimized}" onclick="maximizeQuestion(this);" data-identifier="expand">
                     <h3>Pergunta ${i + 1}</h3>
                     <ion-icon name="create-outline"></ion-icon>
                 </article>
@@ -450,7 +450,7 @@ function GoToQuizzLevels () {
                 levelMinimized = "disabled";
             }
             quizzCreationLevels.innerHTML += `
-                <section>
+                <section data-identifier="level">
                     <article class="level ${levelExpanded}">
                             <h2>Nível ${i + 1}</h2>
                             <input id="levelTitle" placeholder="   Título do nível" value=${quizzBeingEdited?.levels[i]?.title || ""}>
@@ -458,7 +458,7 @@ function GoToQuizzLevels () {
                             <input id="levelImgURL" placeholder="   URL da imagem do nível" value=${quizzBeingEdited?.levels[i]?.image || ""}>
                             <input id="levelDescription" placeholder="   Descrição do nível" value=${quizzBeingEdited?.levels[i]?.text || ""}>
                     </article>
-                    <article class="minimized ${levelMinimized}" onclick="maximizeLevel(this);">
+                    <article class="minimized ${levelMinimized}" onclick="maximizeLevel(this);" data-identifier="expand">
                             <h3>Nível ${i + 1}</h3>
                             <ion-icon name="create-outline"></ion-icon>
                     </article>
