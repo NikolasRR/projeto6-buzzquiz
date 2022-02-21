@@ -526,9 +526,15 @@ function verifyAndGoToQuizzFinished () {
     if (editingQuizz) {
         const quizzID = localStorage.getItem(quizzBeingEdited.title);
         const linkAPI = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`
-        const quizzKEY = localStorage.getItem(quizzBeingEdited.title + "_KEY").toString();
+        const quizzKEY = localStorage.getItem(quizzBeingEdited.title + "_KEY");
         const objectHeader = { headers: { "Secret-Key": quizzKEY } };
-        const editQuizzPromisse = axios.put(linkAPI, createdQuizz, createdQuizz);
+        const editQuizzPromisse = axios.put(linkAPI, createdQuizz, objectHeader);
+        editQuizzPromisse.then(
+            response => {
+            localStorage.setItem(createdQuizz.title, response.data.id);
+            localStorage.setItem(createdQuizz.title + "_KEY", response.data.key);
+            });
+
     }
     if (zeroPercentageLevelExists && createdQuizz.levels.length === levelsQuantity) {
         const quizzCreationFinished = document.querySelector(".quizzCreationFinished");
@@ -544,8 +550,8 @@ function verifyAndGoToQuizzFinished () {
 
             loading('quizzCreationLevels','quizzCreationFinished');
         
-
-        const createdQuizzPromisse =  axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizz);
+        if (!editingQuizz) {
+        const createdQuizzPromisse = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizz);
         createdQuizzPromisse.then(
             response => {
                 localStorage.setItem(createdQuizz.title, response.data.id);
@@ -553,6 +559,7 @@ function verifyAndGoToQuizzFinished () {
                 idCreatedQuizz = response.data.id;
                 getQuizzes();
             });
+        }
         return
     }
     createdQuizz.levels = [];
@@ -578,22 +585,23 @@ function deleteQuizz (trash_can_icon) {
 }
 
 function editQuizz (edit_icon) {
-    const quizz = edit_icon.parentNode.parentNode;
-    const quizzTitle = quizz.querySelector("span").innerText;
-    const quizzID = localStorage.getItem(quizzTitle);
-    const quizzAPI = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`;
-    const editQuizzPromisse = axios.get(quizzAPI);
-    editQuizzPromisse.then(
-        response => {
-            document.getElementById("quizzTitle").value = response.data.title;
-            document.getElementById("quizzImgURL").value = response.data.image;
-            document.getElementById("quizzQuestionsQuantity").value = response.data.questions.length;
-            document.getElementById("quizzLevelsQuantity").value = response.data.levels.length;
-            quizzBeingEdited = response.data;
-        }
-    );
-    createQuizz();
-    editingQuizz = true;
+    alert("Funcionalidade ainda não disponível")
+    // const quizz = edit_icon.parentNode.parentNode;
+    // const quizzTitle = quizz.querySelector("span").innerText;
+    // const quizzID = localStorage.getItem(quizzTitle);
+    // const quizzAPI = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`;
+    // const editQuizzPromisse = axios.get(quizzAPI);
+    // editQuizzPromisse.then(
+    //     response => {
+    //         document.getElementById("quizzTitle").value = response.data.title;
+    //         document.getElementById("quizzImgURL").value = response.data.image;
+    //         document.getElementById("quizzQuestionsQuantity").value = response.data.questions.length;
+    //         document.getElementById("quizzLevelsQuantity").value = response.data.levels.length;
+    //         quizzBeingEdited = response.data;
+    //     }
+    // );
+    // createQuizz();
+    // editingQuizz = true;
     
 }
 function resetVariablesAndElements () {
@@ -628,7 +636,6 @@ function accessQuizz(){
 
     let disabledScreen4 = document.querySelector(".quizzCreationFinished");
     disabledScreen4.classList.add("disabled");
-    
   
 }
 
