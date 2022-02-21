@@ -1,9 +1,18 @@
 @keyframes loading {
     0% {opacity: 80%; color: black;}
     20% {opacity: 30%; color: black}
-    50% {opacity: 80%;color: black;}
+    50% {opacity: 80%;}
     80% {opacity: 30%; }
     100% {opacity: 100%; }   
+}
+@keyframes exitLoading {
+    50%{opacity: 100%;}
+    100%{opacity: 0%;}   
+}
+@keyframes screen1 {
+    0% {opacity: 0%;}
+    100% {opacity: 100%;}
+    
 }
 
 body{
@@ -33,6 +42,7 @@ header h1{
 }
 
 .loading{
+   
     position: absolute;
     width: 100%;
     height: 100%;
@@ -41,6 +51,9 @@ header h1{
     justify-content: center;
     align-items: center;
     flex-direction: column; 
+    animation-name: exitLoading;
+    animation-duration: 3.5s;
+
 }
 
 .loading img{
@@ -51,7 +64,7 @@ header h1{
 .loading h1{
     font-weight: bold;
     animation-name: loading;
-    animation-duration: 2s;
+    animation-duration: 5s;
     color: #43a057;
 }
 
@@ -65,6 +78,9 @@ header h1{
     align-items: center;
     margin: 69px auto 0 auto;
     width: 340px;
+
+    animation-name: screen1;
+    animation-duration: 1s;
 }
 
 .screen1 h1 {
@@ -203,7 +219,7 @@ header h1{
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-bottom: 25px;
+    margin-bottom: 90px;
     text-align: center;
     color: #FFFFFF;
     
@@ -249,9 +265,9 @@ header h1{
     justify-content: center;
     flex-wrap: wrap;
     /*margins*/
-    height: 65px;
+    
     width: 100%;
-    padding: 0px 3px;
+    padding:5px;
     /*colors*/
     color: #FFFFFF;
     background-color: #434CA0;
@@ -269,8 +285,8 @@ header h1{
     /*margins*/
     
     padding: 10px;
-    margin: 25px 0px;
-    height: 1;
+    margin-bottom: 50px;
+    
     /*colors*/
     background-color: #FFFFFF;
 }
@@ -288,11 +304,15 @@ figure img{
     height: 100%;
 }
 figure figcaption{
-    font-weight: bold;
-    font-size: 2.5vw;
-    height: auto;
     display: flex;
     align-items: center;
+    justify-content: start;
+    padding-bottom: 15px;
+    word-break: break-all;
+    font-size: 2.5vw;
+    height: auto;
+    
+    
 }
 
 /*result*/
@@ -306,10 +326,10 @@ figure figcaption{
      flex-wrap: wrap;
      justify-content: space-between;
      /*margins*/
-     
+     width: 100%;
      padding: 10px;
-     margin: 25px 0px;
-     height: 1;
+     
+     
      /*colors*/
      background-color: #FFFFFF;
     
@@ -317,12 +337,12 @@ figure figcaption{
 .title-result{
     
     font-weight: bold;
-    font-size: 5vw;
+    font-size: 3.8vw;
     height: 20vw;
     
     display: flex;
     align-items: center;
-    justify-content: center;
+    word-break: break-all;
     text-align: center;
     color: #FFFFFF;
     background-color: #EC362D;
@@ -342,6 +362,8 @@ figure figcaption{
     display: flex;
     align-items: center;
     justify-content: start;
+    padding-bottom: 15px;
+    word-break: break-all;
     
 }
 .returnOrReload{
@@ -685,21 +707,14 @@ input {
     }
 
     .option-quizz-selected h1{ 
-        
         font-size: 35px;
         /*flex*/
-       
         height: 138px;
         width: 100%;
-       
-        
-        
     }
     figure{
         width: 478px;
-        height: 331.29px;
-        
-       
+        height: 331.29px; 
     }
     
     figure figcaption{
@@ -707,15 +722,11 @@ input {
     }
     .boxResult{
      width: 1100px;
-   }
+    }
 
    .title-result{
-    
-    
     font-size: 30px ;
     height: 99px;
-    
-    
     width: 100%;
     }
     
@@ -723,7 +734,6 @@ input {
         width: 260.38px;
     height: 52px;
     }
-
 
     /* screen 3 - general changes */
     .screen3 h1 {
@@ -743,8 +753,6 @@ input {
     .screen3 section {
         width: 564px;
     }
-
-
     /* screen 3.4 - quizz created finish */
     .quizzCreated {
         width: 500px;
