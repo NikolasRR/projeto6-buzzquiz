@@ -39,7 +39,7 @@ function loadQuizzes(response){
     userQuizzes.innerHTML = `
         <div class="userQuizzesTitle">
             <h1>Seus Quizzes</h1>
-            <ion-icon name="add-circle" onclick="createQuizz();"></ion-icon>
+            <ion-icon data-identifier="create-quizz" name="add-circle" onclick="createQuizz();"></ion-icon>
         </div>
     `;
 
@@ -50,7 +50,7 @@ function loadQuizzes(response){
         const isAUsersQuizz = object.id == localStorage.getItem(object.title);
         if (isAUsersQuizz) {
             userQuizzes.innerHTML += `
-            <article class="quizz">
+            <article data-identifier="user-quizzes" class="quizz">
                 <img onclick="quizz(${i})" src="${object.image}">
                 <span onclick="quizz(${i})" >${object.title}</span>
                 <div class="quizzOptions">
@@ -62,7 +62,7 @@ function loadQuizzes(response){
             userHasQuizzes = true;
         } else {
             allquizes.innerHTML += `
-            <article class="quizz">
+            <article data-identifier="general-quizzes" class="quizz">
                 <img onclick="quizz(${i})" src="${object.image}">
                 <span onclick="quizz(${i})" >${object.title}</span>
             </article>
@@ -92,14 +92,14 @@ function quizz(number){
     
     for(let i = 0; i<object.questions.length; i++){
         quizzesOptions.innerHTML += `
-            <article class="option-quizz-selected opt${i}">`
+            <article data-identifier="question" class="option-quizz-selected opt${i}">`
             let choices = document.querySelector('.option-quizz-selected.opt'+i);
             choices.innerHTML += `<h1>${object.questions[i].title}</h1>`
             let response = object.questions[i].answers.sort(comparador);
         for(let j = 0; j< response.length;j++){
  
             choices.innerHTML += `
-            <figure class="option opt${i}${j}" onclick="selected(${number}, ${i}, ${j})">
+            <figure data-identifier="answer" class="option opt${i}${j}" onclick="selected(${number}, ${i}, ${j})">
                 <img src="${response[j].image}">
                 <figcaption>${response[j].text}</figcaption>
             </figure>
@@ -551,6 +551,7 @@ function verifyAndGoToQuizzFinished () {
                 localStorage.setItem(createdQuizz.title, response.data.id);
                 localStorage.setItem(createdQuizz.title + "_KEY", response.data.key);
                 idCreatedQuizz = response.data.id;
+                getQuizzes();
             });
         return
     }
@@ -614,14 +615,12 @@ function resetVariablesAndElements () {
 }
 
 function accessQuizz(){
-    resetVariablesAndElements;
+    
     for(let i = 0; i<arrayWithObjects.length; i++){
 
         if(idCreatedQuizz == arrayWithObjects[i].id){
-            console.log("achou!!")
-
-            console.log(idCreatedQuizz);
-            console.log(arrayWithObjects[i].id);
+            
+            
             quizz(i);
             
         }
