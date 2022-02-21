@@ -558,14 +558,7 @@ function verifyAndGoToQuizzFinished () {
                 <span>${createdQuizz.title}</span>
             </article>
             <button onclick="accessQuizz()">Acessar Quizz</button>
-<<<<<<< HEAD
             <button onclick="backToHome();">Voltar pra home</button>
-=======
-
-            <button onclick="backToHome()">Voltar pra home</button>
-
-
->>>>>>> 29e01b9bd00e1585c3b388967f7e09aa34333eec
             `;
         quizzCreationFinished.classList.remove("disabled");
 
@@ -641,12 +634,7 @@ function resetVariablesAndElements () {
 }
 
 function accessQuizz(){
-<<<<<<< HEAD
     resetVariablesAndElements;
-=======
-    
-
->>>>>>> 29e01b9bd00e1585c3b388967f7e09aa34333eec
     for(let i = 0; i<arrayWithObjects.length; i++){
         if(idCreatedQuizz == arrayWithObjects[i].id){
             quizz(i);
