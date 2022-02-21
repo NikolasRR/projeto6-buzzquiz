@@ -1,9 +1,11 @@
 let callFunction = getQuizzes();
+let loadingS1 = loading('screen1','screen1');
 let arrayWithObjects = [];
 let qtdQuestions = null;
 let choiced = 0;
 let hits = 0;
 let objectTemp=null;
+
 
 
 let createdQuizz = {};
@@ -17,22 +19,13 @@ function getQuizzes(){
     const getQuizServer = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     getQuizServer.then(loadQuizzes);
     getQuizServer.catch( function (){alert("Erro ao recarregar os Quizzes.");  window.location.reload(); } )
-
-    setTimeout(function(){
-        let disabledLoading = document.querySelector(".loading");
-        disabledLoading.classList.add("disabled");
-        
-    }, 3000);
+    
+    
 }
 
 function loadQuizzes(response){
-    setTimeout(function(){
-        let activeScreen1 = document.querySelector(".screen1.disabled");
-        activeScreen1.classList.remove("disabled");
-        
-    }, 2800);
+    
 
-   
     const allquizes = document.querySelector(".allQuizzes");
     const userQuizzes = document.querySelector(".userQuizzes");
     const noUserQuizzes = document.querySelector(".noUserQuizzes");
@@ -110,13 +103,9 @@ function quizz(number){
         }   
     }
 
-
-    let disabledScreen1 = document.querySelector(".screen1");
-    let activeScreen2 = document.querySelector(".screen2");
-    let toTop = document.querySelector(".bottomBoxHeader");
-
-    disabledScreen1.classList.add("disabled");
-    activeScreen2.classList.remove("disabled"); 
+    loading('screen1', 'screen2');
+    
+    let toTop = document.querySelector(".bottomBoxHeader"); 
     toTop.scrollIntoView({block: "end", behavior: 'smooth'}); 
 
 }
@@ -130,7 +119,6 @@ function sounds(effect){
         sound.innerHTML = `<audio audio autoplay src="mp3/beep.mp3" type="audio/mp3"></audio>`
     }
 }
-
 
 function selected (obj, p1, p2){
     let verifyChoices = arrayWithObjects[obj];
@@ -166,22 +154,17 @@ function selected (obj, p1, p2){
                 
             }
         }
-        
-        if(j+1 != null){
-            let next = document.querySelector(`.opt${j}`);
-            setTimeout(() => {if(next!= null ){next.scrollIntoView({behavior: 'smooth'});}}, 2000);
-        }
-        
-        
-            
-        
      }
+     let next = document.querySelector(`.opt${p1+1}`);
+     if(next != null){
+        
+        setTimeout( () => { next.scrollIntoView({behavior: 'smooth'})}, 2000);
+    }
      choiced++;
 
     if(choiced == qtdQuestions){
         setTimeout(finish,1000);   
-    } 
-        
+    }      
 }
 
 function finish (){
@@ -189,18 +172,14 @@ function finish (){
     let score = (100/qtdQuestions)*hits;
     let round = Math.ceil(score);
     let biggest = 0;
-    
-
-    
+  
     for(let i = 0; i<objectTemp.levels.length; i++){
         biggest = objectTemp.levels[i].minValue;
         if(score<=objectTemp.levels[i].minValue){
-
-
-                      
+          
             let result = document.querySelector(".boxResult");
             result.innerHTML = `
-            <h1 class="title-result">${round}% de acerto: ${objectTemp.levels[i].title}}!</h1>
+            <h1 class="title-result">${round}% de acerto: ${objectTemp.levels[i].title}!</h1>
             <img src="${objectTemp.levels[i].image}">
             <h1 class="coments-result">${objectTemp.levels[i].text}</h1>
             `
@@ -223,7 +202,7 @@ function finish (){
             `
             let showBoxResult = document.querySelector(".boxResult");
             showBoxResult.classList.remove("disabled");
-            let showBoxButtons = document.querySelector(".end");
+            let showBoxButtons = document.querySelector(".returnOrReload");
             showBoxButtons.classList.remove("disabled");
             showBoxButtons.scrollIntoView({behavior: 'smooth'});
 
@@ -248,20 +227,41 @@ function reload(){
     choiced = 0;
     hits = 0;
     objectTemp=null;
+
     quizz(foundIn);
     
-    let toTop = document.querySelector(".bottomBoxHeader");
-    toTop.scrollIntoView({block: "end",behavior: 'smooth'});
-    let ocultboxResult = document.querySelector(".boxResult");
-    let ocultBoxButtons = document.querySelector(".returnOrReload");
-    ocultboxResult.classList.add("disabled");
-    ocultBoxButtons.classList.add("disabled");
+    
+    
+    let ocultScreen2 = document.querySelector(".screen2");
+    let boxResult = document.querySelector(".boxResult");
+    let ocultBottoms = document.querySelector(".boxResult");
+    ocultScreen2.classList.add("disabled");
+    boxResult.classList.add("disabled");
+    
 
 
 }
 
 function backToHome(){
     window.location.reload();
+}
+function loading(screenA, screenB){
+    
+    let disabled = document.querySelector("."+screenA);
+    disabled.classList.add("disabled");
+
+    let activeLoading = document.querySelector(".loading");
+    activeLoading.classList.remove("disabled");
+
+    setTimeout(function(){
+        let disabledLoading = document.querySelector(".loading");
+        disabledLoading.classList.add("disabled");
+    }, 2500);
+
+    setTimeout(function(){
+        let activeScreenB = document.querySelector("."+screenB);
+        activeScreenB.classList.remove("disabled");}, 2450);
+
 }
 
 
@@ -533,10 +533,9 @@ function verifyAndGoToQuizzFinished () {
 
 
             `;
-        quizzCreationFinished.classList.remove("disabled");
 
-        const quizzCreationLevels = document.querySelector(".quizzCreationLevels");
-        quizzCreationLevels.classList.add("disabled");
+            loading('quizzCreationLevels','quizzCreationFinished');
+        
 
         const createdQuizzPromisse =  axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", createdQuizz);
         createdQuizzPromisse.then(
@@ -585,14 +584,23 @@ function deleteQuizz (trash_canIcon) {
 // }
 
 function accessQuizz(){
-    
+
 
     for(let i = 0; i<arrayWithObjects.length; i++){
+
         if(idCreatedQuizz == arrayWithObjects[i].id){
+            console.log("achou!!")
+
+            console.log(idCreatedQuizz);
+            console.log(arrayWithObjects[i].id);
             quizz(i);
+            
         }
     }
-    const desableScreen4 = document.querySelector(".quizzCreationFinished");
-    desableScreen4.classList.add("disabled");
+
+    let disabledScreen4 = document.querySelector(".quizzCreationFinished");
+    disabledScreen4.classList.add("disabled");
+    
+  
 }
 

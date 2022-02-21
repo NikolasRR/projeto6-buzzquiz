@@ -9,7 +9,7 @@
     50%{opacity: 100%;}
     100%{opacity: 0%;}   
 }
-@keyframes screen1 {
+@keyframes screens {
     0% {opacity: 0%;}
     100% {opacity: 100%;}
     
@@ -79,7 +79,7 @@ header h1{
     margin: 69px auto 0 auto;
     width: 340px;
 
-    animation-name: screen1;
+    animation-name: screens;
     animation-duration: 1s;
 }
 
@@ -177,13 +177,12 @@ header h1{
     border-radius: 5px;
     -webkit-mask-image: linear-gradient(to top, transparent 0%, black 120%);
 }
-
 .quizz span {
     position: absolute;
     display: flex;
     align-items: center;
     word-break: break-all;
-    background-color: #43a057;
+    
     bottom: 7px;
     padding-left: 18px;
     font-size: 19px;
@@ -212,7 +211,6 @@ header h1{
     padding-left: 4px;
 }
 
-
 /*styles second screens*/
 
 .screen2{
@@ -226,17 +224,20 @@ header h1{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    animation-name: screens;
+    animation-duration: 1s;
     
 }
 .bottomBoxHeader{
     z-index: 2;
     width: 100%;
-    height: 37.86vw;
+    height: 142px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-bottom: 90px;
+    margin-bottom: 24px;
     text-align: center;
     color: #FFFFFF;
     
@@ -268,23 +269,22 @@ header h1{
 }
 
 .options{
-    overflow-y: hidden; 
+    margin-bottom: 40px;
 }
 
 .option-quizz-selected h1{ 
     /*fonts*/
     font-weight: bold;
-    font-size: 3.8vw;
+    font-size: 5vw;
     /*flex*/
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    word-break: break-all;
     /*margins*/
-    
     width: 100%;
-    padding:5px;
+    padding:10px 16px;
     /*colors*/
     color: #FFFFFF;
     background-color: #434CA0;
@@ -300,17 +300,16 @@ header h1{
     flex-wrap: wrap;
     justify-content: space-between;
     /*margins*/
-    
-    padding: 10px;
+    width: 375px;
+    padding: 18px;
     margin-bottom: 50px;
-    
     /*colors*/
     background-color: #FFFFFF;
 }
 
 figure{
-    width: 42vw;
-    height: 29.11vw;
+    width: 45%;
+    height: 100% ;
     
     padding-bottom: 4.5vw;
     margin-top: 3vw;  
@@ -334,28 +333,27 @@ figure figcaption{
 
 /*result*/
 .boxResult{
-     /*fonts*/
-     font-family: Roboto;
-     font-style: bold;
-     /*flex*/
-     display: flex;
-     align-items: center;
-     flex-wrap: wrap;
-     justify-content: space-between;
-     /*margins*/
-     width: 100%;
-     padding: 10px;
-     
-     
-     /*colors*/
-     background-color: #FFFFFF;
+       /*fonts*/
+    font-family: Roboto;
+    font-style: bold;
+    /*flex*/
+    display: flex;
+    flex-wrap: wrap;
     
+    
+    
+    /*margins*/
+    padding: 18px;
+    margin-bottom: 20px;
+    /*colors*/
+    background-color: #FFFFFF;
+
 }
 .title-result{
     
     font-weight: bold;
-    font-size: 3.8vw;
-    height: 20vw;
+    font-size: 23px;
+    padding: 10px 5px;
     
     display: flex;
     align-items: center;
@@ -367,27 +365,29 @@ figure figcaption{
 }
 .boxResult img{
     width: 100%;
-    height: 100%;
+    height: 75%;
+    contain: paint;
+    padding-bottom: 10px;
+    background-color: #43a057;
     
-    padding-bottom: 4.5vw;
-    margin-top: 3vw;  
 }
 .coments-result{
     font-weight: bold;
-    font-size: 3vw;
-    height: auto;
+    font-size: 17px;
+    
     display: flex;
     align-items: center;
     justify-content: start;
-    padding-bottom: 15px;
+    
     word-break: break-all;
+    color: #484848;
     
 }
 .returnOrReload{
     font-weight: normal;
     font-size: 18px;
-    line-height: 21px;
-    margin-top: 15px;
+    
+    
     display: flex;
     flex-direction: column;
     
@@ -418,10 +418,6 @@ figure figcaption{
     color: #818181;
     background-color: #E5E5E5;;
 }
-
-
-
-
 
 /*styles third screen*/
 main {
@@ -681,8 +677,11 @@ input::placeholder {
     }
     
     /* screen 2 */
+    .bottomBoxHeader{
+        height: 227px;
+    }
     .option-quizz-selected{
-        width: 1100px;
+        width: 759px;
         left: 50%;
     }
 
@@ -693,7 +692,7 @@ input::placeholder {
         width: 100%;
     }
     figure{
-        width: 478px;
+        width: 45%;
         height: 331.29px; 
     }
     
@@ -701,18 +700,31 @@ input::placeholder {
         font-size: 30px; 
     }
     .boxResult{
-     width: 1100px;
+     width: 759px;
+     align-items: flex-start;
+    }
+    .boxResult img{
+        max-width: 45%;
+        padding-bottom: 10px;
+        background-color: #43a057;
+        
     }
 
    .title-result{
     font-size: 30px ;
     height: 99px;
-    width: 100%;
+    width: 759px;
     }
+    .coments-result{
+        width: 51%;
+        margin-left: 15px;
+        margin-top: 15px;
+    }
+        
     
     .returnOrReload button:nth-child(1){
-        width: 260.38px;
-    height: 52px;
+        width: 260px;
+        height: 52px;
     }
 
     /* screen 3 - general changes */
