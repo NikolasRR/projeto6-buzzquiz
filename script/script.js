@@ -200,7 +200,7 @@ function finish (){
                      
             let result = document.querySelector(".boxResult");
             result.innerHTML = `
-            <h1 class="title-result">${round}% de acerto: ${objectTemp.levels[i].title}}!</h1>
+            <h1 class="title-result">${round}% de acerto: ${objectTemp.levels[i].title}!</h1>
             <img src="${objectTemp.levels[i].image}">
             <h1 class="coments-result">${objectTemp.levels[i].text}</h1>
             `
@@ -595,10 +595,6 @@ function deleteQuizz (trash_can_icon) {
     });
 }
 
-<<<<<<< HEAD
-function accessQuizz(){
-
-=======
 function editQuizz (edit_icon) {
     const quizz = edit_icon.parentNode.parentNode;
     const quizzTitle = quizz.querySelector("span").innerText;
@@ -635,7 +631,6 @@ function resetVariablesAndElements () {
     const quizzCreationLevels = document.querySelector(".quizzCreationLevels");
     quizzCreationLevels.innerHTML = `<h1>Agora, decida os níveis!</h1>`;
 }
->>>>>>> 93bbb264933c06fdb9f3a366fc3d82d6ef35bc54
 
 function accessQuizz(){
     resetVariablesAndElements;
