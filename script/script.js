@@ -15,6 +15,10 @@ let levelsQuantity = 0;
 let zeroPercentageLevelExists = false;
 let idCreatedQuizz = 0;
 
+let quizzBeingEdited = null;
+let editingQuizz = false;
+
+
 function getQuizzes(){
     const getQuizServer = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     getQuizServer.then(loadQuizzes);
@@ -50,7 +54,7 @@ function loadQuizzes(response){
                 <img onclick="quizz(${i})" src="${object.image}">
                 <span onclick="quizz(${i})" >${object.title}</span>
                 <div class="quizzOptions">
-                    <ion-icon name="create-outline"></ion-icon>
+                    <ion-icon onclick="editQuizz(this);" name="create-outline"></ion-icon>
                     <ion-icon onclick="deleteQuizz(this);" name="trash-outline"></ion-icon>                
                 </div>
             </article>
@@ -73,9 +77,9 @@ function loadQuizzes(response){
 
 function quizz(number){
 
-     let object = arrayWithObjects[number];
-     qtdQuestions = object.questions.length;
-     objectTemp = object;
+    let object = arrayWithObjects[number];
+    qtdQuestions = object.questions.length;
+    objectTemp = object;
 
     let header = document.querySelector(".bottomBoxHeader");
     header.innerHTML = `
@@ -302,6 +306,9 @@ function verifyAndGoToQuizzQuestions () {
         const quizzCreationQuestions = document.querySelector(".quizzCreationQuestions");
         quizzCreationQuestions.classList.remove("disabled");
 
+        let selector = null;
+        let question = null;
+
         for (let i = 0; i < questionsQuantity; i++) {
             let questionForm = "disabled";
             let questionMinimized = "enabled";
@@ -310,7 +317,7 @@ function verifyAndGoToQuizzQuestions () {
                 questionMinimized = "disabled";
             }
 
-        quizzCreationQuestions.innerHTML += `
+            quizzCreationQuestions.innerHTML += `
             <section>
                 <article class="question ${questionForm}">
                     <div class="questionTextImg">
@@ -341,6 +348,29 @@ function verifyAndGoToQuizzQuestions () {
                 </article>
             </section>
             `;
+            if (editingQuizz) {
+                selector = `.quizzCreationQuestions section:nth-child(${i + 2})`;
+                question = document.querySelector(selector);
+                console.log(quizzBeingEdited.questions[i].title)
+                console.log(question)
+                console.log(question.querySelector("#questionText"))
+                question.querySelector("#questionText").value = quizzBeingEdited.questions[i].title;
+                question.querySelector("#questionBackground-color").value = quizzBeingEdited.questions[i].color;
+                question.querySelector("#correctAnswer").value = quizzBeingEdited.questions[i].answers[0].text;
+                question.querySelector("#correctAnswerImgURL").value = quizzBeingEdited.questions[i].answers[0].image;
+                question.querySelector("#incorrectAnswer1").value = quizzBeingEdited.questions[i].answers[1].text;
+                question.querySelector("#incorrectAnswer1ImgURL").value = quizzBeingEdited.questions[i].answers[1].image;
+
+                const thereIsAThirdAnswer = quizzBeingEdited.questions[i].answers[2] !== undefined
+                if (thereIsAThirdAnswer) {
+                    question.querySelector("#incorrectAnswer2").value = quizzBeingEdited.questions[i].answers[2].text;
+                    question.querySelector("#incorrectAnswer2ImgURL").value = quizzBeingEdited.questions[i].answers[2].image;
+                }
+                if (quizzBeingEdited.questions[i].answers[2] !== undefined) {
+                    question.querySelector("#incorrectAnswer3").value = quizzBeingEdited.questions[i].answers[3].text;
+                    question.querySelector("#incorrectAnswer3ImgURL").value = quizzBeingEdited.questions[i].answers[3].image;
+                }
+            }
         }
         quizzCreationQuestions.innerHTML += `
             <button onclick="GoToQuizzLevels();">Prosseguir pra criar níveis</button>
@@ -528,10 +558,7 @@ function verifyAndGoToQuizzFinished () {
                 <span>${createdQuizz.title}</span>
             </article>
             <button onclick="accessQuizz()">Acessar Quizz</button>
-
-            <button onclick="backToHome()">Voltar pra home</button>
-
-
+            <button onclick="backToHome();">Voltar pra home</button>
             `;
 
             loading('quizzCreationLevels','quizzCreationFinished');
@@ -545,47 +572,73 @@ function verifyAndGoToQuizzFinished () {
                 getQuizzes();
                 idCreatedQuizz = response.data.id;
             });
-        createdQuizzPromisse.catch(console.log("Ocorreu um problema"));
         return
     }
     createdQuizz.levels = [];
     alert("Por favor preencha os dados corretamente");
 }
 
-function deleteQuizz (trash_canIcon) {
-    const quizz = trash_canIcon.parentNode.parentNode;
+function deleteQuizz (trash_can_icon) {
+    const quizz = trash_can_icon.parentNode.parentNode;
     const quizzTitle = quizz.querySelector("span").innerText;
     const quizzID = localStorage.getItem(quizzTitle);
-    const quizzKEY = localStorage.getItem(quizzTitle + "_KEY");
+    const quizzKEY = localStorage.getItem(quizzTitle + "_KEY").toString();
     const APIQuizzToDeleteLink = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`;
-    const objectHeader = {header: quizzKEY};
+    const objectHeader = { headers: { "Secret-Key": quizzKEY } };
+    console.log(typeof objectHeader);
+    console.log(objectHeader);
     const quizzDeletedPromisse = axios.delete(APIQuizzToDeleteLink, objectHeader);
     quizzDeletedPromisse.then(
         () => {
             console.log("Quizz deletado!");
             getQuizzes();
-})
+    });
 }
-// function resetVariablesAndElements () {
-//     createdQuizz = {};
-//     questionNumber = 0;
-//     questionsQuantity = 0;
-//     levelsQuantity = 0;
-//     zeroPercentageLevelExists = false;
 
-//     document.getElementById("quizzTitle").value = "";
-//     document.getElementById("quizzImgURL").value = "";
-//     document.getElementById("quizzQuestionsQuantity").value = "";
-//     document.getElementById("quizzLevelsQuantity").value = "";
-//     const quizzCreationQuestions = document.querySelector(".quizzCreationQuestions");
-//     quizzCreationQuestions.innerHTML = `<h1>Crie suas perguntas</h1>`;
-//     const quizzCreationLevels = document.querySelector(".quizzCreationLevels");
-//     quizzCreationLevels.innerHTML = `<h1>Agora, decida os níveis!</h1>`;
-// }
-
+<<<<<<< HEAD
 function accessQuizz(){
 
+=======
+function editQuizz (edit_icon) {
+    const quizz = edit_icon.parentNode.parentNode;
+    const quizzTitle = quizz.querySelector("span").innerText;
+    const quizzID = localStorage.getItem(quizzTitle);
+    const quizzAPI = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`;
+    const editQuizzPromisse = axios.get(quizzAPI);
+    editQuizzPromisse.then(
+        response => {
+            document.getElementById("quizzTitle").value = response.data.title;
+            document.getElementById("quizzImgURL").value = response.data.image;
+            document.getElementById("quizzQuestionsQuantity").value = response.data.questions.length;
+            document.getElementById("quizzLevelsQuantity").value = response.data.levels.length;
+            quizzBeingEdited = response.data;
+        }
+    );
+    createQuizz();
+    editingQuizz = true;
+    
+}
+function resetVariablesAndElements () {
+    createdQuizz = {};
+    questionNumber = 0;
+    questionsQuantity = 0;
+    levelsQuantity = 0;
+    zeroPercentageLevelExists = false;
+    editingQuizz = false;
 
+    document.getElementById("quizzTitle").value = "";
+    document.getElementById("quizzImgURL").value = "";
+    document.getElementById("quizzQuestionsQuantity").value = "";
+    document.getElementById("quizzLevelsQuantity").value = "";
+    const quizzCreationQuestions = document.querySelector(".quizzCreationQuestions");
+    quizzCreationQuestions.innerHTML = `<h1>Crie suas perguntas</h1>`;
+    const quizzCreationLevels = document.querySelector(".quizzCreationLevels");
+    quizzCreationLevels.innerHTML = `<h1>Agora, decida os níveis!</h1>`;
+}
+>>>>>>> 93bbb264933c06fdb9f3a366fc3d82d6ef35bc54
+
+function accessQuizz(){
+    resetVariablesAndElements;
     for(let i = 0; i<arrayWithObjects.length; i++){
 
         if(idCreatedQuizz == arrayWithObjects[i].id){
