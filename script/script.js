@@ -306,9 +306,6 @@ function verifyAndGoToQuizzQuestions () {
         const quizzCreationQuestions = document.querySelector(".quizzCreationQuestions");
         quizzCreationQuestions.classList.remove("disabled");
 
-        let selector = null;
-        let question = null;
-
         for (let i = 0; i < questionsQuantity; i++) {
             let questionForm = "disabled";
             let questionMinimized = "enabled";
@@ -316,30 +313,29 @@ function verifyAndGoToQuizzQuestions () {
                 questionForm = "enabled";
                 questionMinimized = "disabled";
             }
-
             quizzCreationQuestions.innerHTML += `
             <section>
                 <article class="question ${questionForm}">
                     <div class="questionTextImg">
                         <h2>Pergunta ${i + 1}</h2>
-                        <input id="questionText" placeholder="   Texto da pergunta">
-                        <input id="questionBackground-color" placeholder="   Cor de fundo da pergunta">
+                        <input id="questionText" placeholder="   Texto da pergunta" value=${quizzBeingEdited?.questions[i]?.title || ""}>
+                        <input id="questionBackground-color" placeholder="   Cor de fundo da pergunta" value=${quizzBeingEdited?.questions[i]?.color || ""}>
                     </div>
                     
                     <div class="correctAnswer">
                         <h2>Resposta correta</h2>
-                        <input id="correctAnswer" placeholder="   Resposta correta">
-                        <input id="correctAnswerImgURL" placeholder="   URL da imagem">
+                        <input id="correctAnswer" placeholder="   Resposta correta" value=${quizzBeingEdited?.questions[i]?.answers[0]?.text || ""}>
+                        <input id="correctAnswerImgURL" placeholder="   URL da imagem" value=${quizzBeingEdited?.questions[i]?.answers[0]?.image || ""}>
                     </div>
 
                     <div class="incorrectAnswers">
                         <h2>Respostas incorretas</h2>
-                        <input id="incorrectAnswer1" placeholder="   Resposta incorreta 1">
-                        <input id="incorrectAnswer1ImgURL" placeholder="   URL da imagem 1">
-                        <input id="incorrectAnswer2" placeholder="   Resposta incorreta 2">
-                        <input id="incorrectAnswer2ImgURL" placeholder="   URL da imagem 2">
-                        <input id="incorrectAnswer3" placeholder="   Resposta incorreta 3">
-                        <input id="incorrectAnswer3ImgURL" placeholder="   URL da imagem 3">
+                        <input id="incorrectAnswer1" placeholder="   Resposta incorreta 1" value=${quizzBeingEdited?.questions[i]?.answers[1]?.text || ""}>
+                        <input id="incorrectAnswer1ImgURL" placeholder="   URL da imagem 1" value=${quizzBeingEdited?.questions[i]?.answers[1]?.image || ""}>
+                        <input id="incorrectAnswer2" placeholder="   Resposta incorreta 2" value=${quizzBeingEdited?.questions[i]?.answers[2]?.text || ""}>
+                        <input id="incorrectAnswer2ImgURL" placeholder="   URL da imagem 2" value=${quizzBeingEdited?.questions[i]?.answers[2]?.image || ""}>
+                        <input id="incorrectAnswer3" placeholder="   Resposta incorreta 3" value=${quizzBeingEdited?.questions[i]?.answers[3]?.text || ""}>
+                        <input id="incorrectAnswer3ImgURL" placeholder="   URL da imagem 3" value=${quizzBeingEdited?.questions[i]?.answers[3]?.image || ""}>
                     </div>
                 </article>
                 <article class="minimized ${questionMinimized}" onclick="maximizeQuestion(this);">
@@ -348,29 +344,6 @@ function verifyAndGoToQuizzQuestions () {
                 </article>
             </section>
             `;
-            if (editingQuizz) {
-                selector = `.quizzCreationQuestions section:nth-child(${i + 2})`;
-                question = document.querySelector(selector);
-                console.log(quizzBeingEdited.questions[i].title)
-                console.log(question)
-                console.log(question.querySelector("#questionText"))
-                question.querySelector("#questionText").value = quizzBeingEdited.questions[i].title;
-                question.querySelector("#questionBackground-color").value = quizzBeingEdited.questions[i].color;
-                question.querySelector("#correctAnswer").value = quizzBeingEdited.questions[i].answers[0].text;
-                question.querySelector("#correctAnswerImgURL").value = quizzBeingEdited.questions[i].answers[0].image;
-                question.querySelector("#incorrectAnswer1").value = quizzBeingEdited.questions[i].answers[1].text;
-                question.querySelector("#incorrectAnswer1ImgURL").value = quizzBeingEdited.questions[i].answers[1].image;
-
-                const thereIsAThirdAnswer = quizzBeingEdited.questions[i].answers[2] !== undefined
-                if (thereIsAThirdAnswer) {
-                    question.querySelector("#incorrectAnswer2").value = quizzBeingEdited.questions[i].answers[2].text;
-                    question.querySelector("#incorrectAnswer2ImgURL").value = quizzBeingEdited.questions[i].answers[2].image;
-                }
-                if (quizzBeingEdited.questions[i].answers[2] !== undefined) {
-                    question.querySelector("#incorrectAnswer3").value = quizzBeingEdited.questions[i].answers[3].text;
-                    question.querySelector("#incorrectAnswer3ImgURL").value = quizzBeingEdited.questions[i].answers[3].image;
-                }
-            }
         }
         quizzCreationQuestions.innerHTML += `
             <button onclick="GoToQuizzLevels();">Prosseguir pra criar níveis</button>
@@ -480,10 +453,10 @@ function GoToQuizzLevels () {
                 <section>
                     <article class="level ${levelExpanded}">
                             <h2>Nível ${i + 1}</h2>
-                            <input id="levelTitle" placeholder="   Título do nível">
-                            <input id="minimumPercentage" placeholder="   % de acerto mínima">
-                            <input id="levelImgURL" placeholder="   URL da imagem do nível">
-                            <input id="levelDescription" placeholder="   Descrição do nível">
+                            <input id="levelTitle" placeholder="   Título do nível" value=${quizzBeingEdited?.levels[i]?.title || ""}>
+                            <input id="minimumPercentage" placeholder="   % de acerto mínima" value=${quizzBeingEdited?.levels[i]?.minValue.toString() || ""}>
+                            <input id="levelImgURL" placeholder="   URL da imagem do nível" value=${quizzBeingEdited?.levels[i]?.image || ""}>
+                            <input id="levelDescription" placeholder="   Descrição do nível" value=${quizzBeingEdited?.levels[i]?.text || ""}>
                     </article>
                     <article class="minimized ${levelMinimized}" onclick="maximizeLevel(this);">
                             <h3>Nível ${i + 1}</h3>
@@ -491,6 +464,7 @@ function GoToQuizzLevels () {
                     </article>
                 </section>
                 `;
+            
         }
         quizzCreationLevels.innerHTML += `
             <button onclick="verifyAndGoToQuizzFinished();">Finalizar Quizz</button>
@@ -549,6 +523,13 @@ function verifyAndSaveLevel (level) {
 function verifyAndGoToQuizzFinished () {
     const levels = document.querySelectorAll(".level");
     levels.forEach(verifyAndSaveLevel);
+    if (editingQuizz) {
+        const quizzID = localStorage.getItem(quizzBeingEdited.title);
+        const linkAPI = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`
+        const quizzKEY = localStorage.getItem(quizzBeingEdited.title + "_KEY").toString();
+        const objectHeader = { headers: { "Secret-Key": quizzKEY } };
+        const editQuizzPromisse = axios.put(linkAPI, createdQuizz, createdQuizz);
+    }
     if (zeroPercentageLevelExists && createdQuizz.levels.length === levelsQuantity) {
         const quizzCreationFinished = document.querySelector(".quizzCreationFinished");
         quizzCreationFinished.innerHTML = `
@@ -570,7 +551,6 @@ function verifyAndGoToQuizzFinished () {
             response => {
                 localStorage.setItem(createdQuizz.title, response.data.id);
                 localStorage.setItem(createdQuizz.title + "_KEY", response.data.key);
-                getQuizzes();
                 idCreatedQuizz = response.data.id;
             });
         return
@@ -582,18 +562,19 @@ function verifyAndGoToQuizzFinished () {
 function deleteQuizz (trash_can_icon) {
     const quizz = trash_can_icon.parentNode.parentNode;
     const quizzTitle = quizz.querySelector("span").innerText;
-    const quizzID = localStorage.getItem(quizzTitle);
-    const quizzKEY = localStorage.getItem(quizzTitle + "_KEY").toString();
-    const APIQuizzToDeleteLink = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`;
-    const objectHeader = { headers: { "Secret-Key": quizzKEY } };
-    console.log(typeof objectHeader);
-    console.log(objectHeader);
-    const quizzDeletedPromisse = axios.delete(APIQuizzToDeleteLink, objectHeader);
-    quizzDeletedPromisse.then(
-        () => {
-            console.log("Quizz deletado!");
-            getQuizzes();
-    });
+    const yesToDelete = window.confirm(`O quizz ${quizzTitle} será deletado`);
+    if (yesToDelete) {
+        const quizzID = localStorage.getItem(quizzTitle);
+        const quizzKEY = localStorage.getItem(quizzTitle + "_KEY").toString();
+        const APIQuizzToDeleteLink = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`;
+        const objectHeader = { headers: { "Secret-Key": quizzKEY } };
+        const quizzDeletedPromisse = axios.delete(APIQuizzToDeleteLink, objectHeader);
+        quizzDeletedPromisse.then(
+            () => {
+                alert("Quizz deletado!");
+                getQuizzes();
+            });
+    }
 }
 
 function editQuizz (edit_icon) {
